@@ -1,0 +1,30 @@
+<div maplist="chiro/validation">
+    <div class="fixed-map _small">
+        <div class="map _small" leaflet-map data="geoms"></div>
+    </div>
+    <div class="cnt _small opaque">
+        <div breadcrumbs></div>
+        <filterform url="{{data_url}}" schema="schema.filtering" callback="setData" paginate="true"></filterform>
+        <div tablewrapper class="table" schema="schema" data="data" refname="{{_appName}}/validation"><h1>Taxons</h1></div>
+        <div ng-class="{'panel panel-success': action==54, 'panel panel-danger': action==56, 'panel panel-warning': action==55}">
+            <div class="panel-heading">
+                <label for="valid">{{action ? 'Validation' : 'Invalidation'}} de {{selection.length}} éléments  </label>
+                <button type="button" class="btn btn-default float-right" ng-click="clear(true)">Vider la liste</button>
+                <button type="button" class="btn btn-default float-right" ng-disabled="!checkedSelection.length" ng-click="_showSelected = !_showSelected">Récapitulatif</button>
+            </div>
+            <div class="panel-body">
+                <div ng-show="_showSelected && checkedSelection.length">
+                    <ul class="list-unstyled">
+                        <li ng-repeat="item in checkedSelection"><h4>{{item.nomComplet}} <small>{{item.siteNom}}</small></h4></li>
+                    </ul>
+                </div>
+                <div class="input-group">
+                    <select class="form-control" id="valid" ng-options="item.id as item.label for item in [{label: 'Valide', id: 54}, {label: 'Non valide', id: 56}, {label: 'A valider', id: 55}]" ng-model="action" ng-change="changed(action)"></select>
+                    <span class="input-group-btn">
+                        <button ng-class="{'btn btn-success': action==54, 'btn btn-danger': action==56, 'btn btn-warning': action==55}" type="button" ng-click="send()" ng-disabled="!selection.length">Envoyer</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

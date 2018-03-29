@@ -1,0 +1,15 @@
+<ol class="breadcrumb" ng-if="!_edit">
+    <li ng-repeat="item in bc">
+        <a ng-if="$index<bc.length-1" ng-href="{{item.link}}"><span class="glyphicon glyphicon-chevron-left"></span>{{item.label}}</a>
+        <span class="text-muted" ng-if="$index==bc.length-1">{{item.label}}</span>
+    </li>
+</ol>
+<ol class="breadcrumb" ng-if="_edit">
+    <li ng-repeat="item in bc">
+        <a ng-href="{{item.link}}"><span class="glyphicon glyphicon-chevron-left"></span>{{item.label}}</a>
+    </li>
+    <li>
+        <span ng-if="!_create" class="text-muted">Edition</span>
+        <span ng-if="_create" class="text-muted">Ajout</span>
+    </li>
+</ol>

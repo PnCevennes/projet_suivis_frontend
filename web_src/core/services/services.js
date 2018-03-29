@@ -1,0 +1,10 @@
+require('./configserv.service.js');
+require('./dataserv.service.js');
+require('./userserv.service.js');
+require('./usermessages.service.js');
+require('./datefr.filter.js');
+require('./tselect.filter.js');
+require('./tmultisel.filter.js');
+require('./spreadsheet.service.js');
+require('./leafletservice.service.js');
+require('./mapservice.service.js');

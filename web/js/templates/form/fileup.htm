@@ -1,0 +1,6 @@
+<button type="button" ng-file-select ng-model="upload_file" class="btn btn-success" ng-hide="lock || !!filepath">Sélectionner un fichier</button>
+<div ng-show="lock || (!!fileid && !!filepath)"><span class="text-primary">{{filepath}}</span>
+    <button type="button" class="btn btn-danger btn-sm" ng-click="delete()">Remplacer</button>
+</div>
+<progressbar ng-if="lock" type="success" value="progress">{{progress}}%</progressbar>
+

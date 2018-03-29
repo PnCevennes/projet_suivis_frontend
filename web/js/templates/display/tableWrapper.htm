@@ -1,0 +1,79 @@
+<script type="text/ng-template" id="ng-table/filters/select.html">
+<select class="form-control" ng-model="params.filter()[column.name]" ng-options="item.id as item.libelle for item in column.options.choices.map(filterZero)"></select>
+</script>
+<ng-transclude></ng-transclude>
+<div style="clear: both; margin-top: 5px;">
+<filterform ng-if="filterUrl" url="{{filterUrl}}" schema="schema.filtering" callback="filterCallback"></filterform>
+</div>
+<h3 ng-if="!data.length">
+    <span class="text-primary">Aucune donnée</span>
+</h3>
+<div ng-if="data.length">
+    <div class="btn-group float-right" style="margin-bottom: 1ex;">
+        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Colonnes<span class="caret"></span></button>
+        <ul class="dropdown-menu select-column" role="menu">
+            <li ng-repeat="column in schema.fields"><input style="margin-right: 5px;" id="sel[{{$index}}]" type="checkbox" ng-model="column.options.visible" ng-disabled="column.options.type=='checkable'" /><label for="sel[{{$index}}]">{{column.label}}</label></li>
+        </ul>
+    </div>
+    <div class="tb-wrapper">
+        <table ng-table="tableParams" show-filter="true" class="table ng-table-rowselected table-bordered tablewrapper">
+            <thead>
+                <tr>
+                    <th>
+                        Actions
+                    </th>
+                    <th ng-if="schema.checkable">
+                        <!--<input type="checkbox" ng-model="_checkall" ng-click="checkAll(_checkall)"></input>-->
+                        <!--<button type="button" class="btn btn-xs" ng-click="checkAll(_checkall)" tooltip="Tout cocher/décocher"><span class="glyphicon glyphicon-check"></span></button>-->
+                        <span class="glyphicon glyphicon-check" style="cursor: pointer;" ng-click="checkAll(_checkall)" tooltip="Tout cocher/décocher"></span>
+                    </th>
+                    <th ng-repeat="column in schema.fields" 
+                        ng-show="column.options.visible && column.options.type!='checkable'" 
+                        class="text-center sortable"
+                        ng-class="
+                            {'sort-asc': tableParams.isSortBy(column.name, 'asc'),
+                            'sort-desc': tableParams.isSortBy(column.name, 'desc'),
+                            'table-xlarge': column.options.style == 'xl',
+                            'table-large': column.options.style == 'l',
+                            'table-small': column.options.style == 's',
+                            'table-xsmall': column.options.style == 'xs'
+                            }"
+                        ng-click="tableParams.sorting(column.name, tableParams.isSortBy(column.name, 'asc') ? 'desc' : 'asc'); tableParams.page(1);"
+                        data-resizable-column-id="{{column.name}}"
+                        >
+                        {{column.label}}
+                    </th>
+                </tr>
+                <tr class="ng-table-filters" ng-init="tableParams">
+                    <th></th>
+                    <th ng-repeat="column in schema.fields" ng-show="column.options.visible" class="filter">
+                        <div ng-if="column.filter" ng-repeat="(name, filter) in column.filter">
+                            <div ng-if="filter.indexOf('/') !== -1" ng-include="filter"></div>
+                            <div ng-if="filter.indexOf('/') === -1" ng-include="'ng-table/filters/' + filter + '.html'"></div>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in $data" ng-click="selectItem(item)" ng-class="{'active': item.$selected}" ng-class-odd="'odd'" ng-class-even="'even'">
+                    <td style="text-align: center">
+                        <a class="link-mute" id="item{{item.id}}" ng-href="{{schema.detailUrl}}{{item.id}}">
+                            <span class="glyphicon glyphicon-info-sign" tooltip="Afficher"></span>
+                        </a>
+                        <a class="link-mute" tooltip="Editer" ng-show="editAccess" ng-href="{{schema.editUrl}}{{item.id}}"><span class="glyphicon glyphicon-pencil"></span></a>
+                    </td>
+                    <td ng-repeat="column in schema.fields" ng-show="column.options.visible" sortable="column.name" class="site-list-col-{{column.name}}">
+                        <input type="checkbox" ng-click="checkItem(item)" ng-model="item._checked" ng-if="column.options.type=='checkable'"></input>
+                        <span ng-if="column.options.type=='date'">{{item[column.name]|datefr}}</span>
+                        <span ng-if="column.options.type=='select'">{{column.options.choices|tselect:item[column.name]}}</span>
+                        <span ng-if="column.options.type=='bool'">{{item[column.name] ? 'Oui' : 'Non'}}</span>
+                        <ul ng-if="column.options.type=='list'" class="list list-inline">
+                            <li ng-repeat="name in item[column.name]">{{name}}</li>
+                        </ul>
+                        <span ng-if="!column.options.type || column.options.type=='text'">{{item[column.name]}}</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

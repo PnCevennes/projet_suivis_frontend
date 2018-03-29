@@ -1,0 +1,4 @@
+<div ng-repeat="fich in fileids">{{fich.slice(fich.indexOf('_')+1)}}</div>
+<button type="button" ng-file-select ng-model="upload_file" class="btn btn-success" ng-hide="lock">Sélectionner un fichier</button>
+<progressbar ng-if="lock" type="success" value="progress">{{progress}}%</progressbar>
+

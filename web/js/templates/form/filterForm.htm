@@ -1,0 +1,65 @@
+<button type="button" ng-class="{'btn filter-inactive': counts.current == counts.total, 'btn filter-active': counts.current != counts.total}" ng-click="collapseFilters = !collapseFilters" ng-show="counts.total>0 && (schema.limit || schema.fields.length)">
+    Filtres 
+    <span ng-class="{'badge filter-active': counts.current != counts.total,'badge filter-inactive': counts.current == counts.total}">{{counts.current}} / {{counts.total}}</span> 
+    <span ng-class="{'glyphicon glyphicon-chevron-right': !collapseFilters, 'glyphicon glyphicon-chevron-down': collapseFilters}"></span>
+</button>
+<div class="filter-form-nav" ng-show="counts.total>0">
+    <div class="ff-paginate" ng-if="paginate">
+        <label for="limitResults">Données </label>
+        <input id="limitResults" type="number" ng-model="schema.limit" ng-model-options="{debounce: 200}" ng-change="send(true)">
+    </div>
+    <button ng-if="paginate" class="btn btn-sm btn-default float-right" ng-disabled="((pageNum + 1) * schema.limit) >= counts.current" ng-click="nextPage()"><span class="glyphicon glyphicon-chevron-right"></span></button>
+    <span ng-if="paginate" class="float-right">Résultats de {{(pageNum*schema.limit)||1}} à {{maxCount||1}} sur {{counts.current}}</span>
+    <span ng-if="!paginate" class="float-right">{{counts.current}} données téléchargées</span>
+    <button ng-if="paginate" class="btn btn-sm btn-default float-right" ng-disabled="pageNum == 0" ng-click="prevPage()"><span class="glyphicon glyphicon-chevron-left"></span></button> 
+</div>
+<div class="filter-form-nav" ng-show="counts.total==0">
+</div>
+<div ng-show="collapseFilters" class="filter-container">
+    <div ng-repeat="field in schema.fields">
+        <label for="{{field.name}}" tooltip="{{field.help}}">{{field.label}}</label>
+        <!-- texte simple -->
+        <div ng-if="field.type=='string' && !field.options.multi">
+            <select class="form-control" ng-model="filterData[field.name].filter" ng-options="flt.id as flt.label for flt in [{id:'=', label: '='}, {id: 'like', label: 'ressemble'}]"></select>
+            <input id="{{field.name}}" name="{{field.name}}" class="form-control" type="text" ng-model="filterData[field.name].value">
+        </div>
+        <div ng-if="field.type=='string' && field.options.multi">
+            <input type="hidden" ng-model="filterData[field.name].filter" value="in">
+            <multi refer="data[field.name].value" schema="field" ng-if="field.options.multi"></multi>
+        </div>
+        <!-- numérique -->
+        <div ng-if="field.type=='num' && !field.options.multi" class="form-inline">
+            <select class="form-control" ng-model="filterData[field.name].filter" ng-options="flt for flt in ['=', '<', '<=', '>', '>=']"></select>
+            <input id="{{field.name}}" name="{{field.name}}" class="form-control" type="number" min="{{field.options.min}}" max="{{field.options.max}}" step="{{field.options.step}}" ng-model="filterData[field.name].value" ng-disabled="field.options.readOnly">
+        </div>
+        <div ng-if="field.type=='num' && field.options.multi">
+            <input type="hidden" ng-model="filterData[field.name].filter" value="in">
+            <multi refer="data[field.name].value" schema="field" ng-if="field.options.multi"></multi>
+        </div>
+        <!-- autocomplete -->
+        <div ng-if="field.type=='xhr' && !field.options.multi">
+            <angucompletewrapper inputclass="form-control" id="{{field.name}}" name="{{field.name}}" decorated="true" selectedobject="filterData[field.name].value" url="{{field.options.url}}/" reverseurl="{{field.options.reverseurl}}" titlefield="label" initial="filterData[field.name].value"></angucompletewrapper>
+        </div>
+        <div ng-if="field.type=='xhr' && field.options.multi">
+            <input type="hidden" ng-model="filterData[field.name].filter" value="in">
+            <multi refer="data[field.name].value" schema="field" ng-if="field.options.multi"></multi>
+        </div>
+        <!-- date -->
+        <div class="form-inline" ng-if="field.type=='date' && !field.options.multi">
+            <div class="form-group">
+                <select class="form-control" ng-model="filterData[field.name].filter" ng-options="flt.id as flt.label for flt in [{id: '=', label: '='}, {id: '<=', label: 'plus ancien que'}, {id: '>=', label: 'plus récent que'}, {id: 'between', label: 'entre'}]" ng-change="setArray(field.name, filterData[field.name].filter=='between')"></select>
+                <span ng-if="filterData[field.name].filter != 'between'" id="{{field.name}}" inputclass="form-control" datepick date="filterData[field.name].value"></span>
+                <span ng-if="filterData[field.name].filter == 'between'" id="{{field.name}}" inputclass="form-control" datepick date="filterData[field.name].value[0]"></span>
+                <span ng-if="filterData[field.name].filter == 'between'" id="{{field.name}}" inputclass="form-control" datepick date="filterData[field.name].value[1]"></span>
+            </div>
+        </div>
+        <div ng-if="field.type=='select' && !field.options.multi">
+            <select id="{{field.name}}" class="form-control" ng-options="item.id as item.libelle for item in field.options.choices" ng-model="filterData[field.name].value"></select>
+        </div>
+        <input id="{{field.name}}" type="checkbox" ng-if="field.type=='bool' && !field.options.multi" ng-model="filterData[field.name].value" ng-disabled="field.options.readOnly">
+    </div>
+    <div style="margin-bottom: 40px">
+        <button type="button" class="btn btn-success float-right" ng-click="send(true)">Filtrer</button>
+        <button type="button" class="btn btn-warning float-right" ng-click="clear()" ng-disabled="counts.current == counts.total">Supprimer les filtres</button> 
+    </div>
+</div>

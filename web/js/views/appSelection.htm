@@ -1,0 +1,9 @@
+<h1 class="jumbotron">Selection d'une application</h1>
+<div class="container">
+  <div ng-repeat="app in apps" ng-if="user.apps[app.appId]" class="col-md-6 col-sm-12"  style="padding: 5px;">
+      <a ng-href="#/{{app.base_url}}" ng-click="select(app.id)">
+          <h2 ng-if="!app.img">{{app.name}}</h2>
+          <img class="img_menu img-responsive" ng-if="app.img" ng-src="{{app.img}}" alt="{{app.name}}"/>
+      </a>
+  </div>
+</div>

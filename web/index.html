@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="fr" ng-app="appSuiviProtocoles">
+    <head>
+        <meta charset="utf8">
+        <meta name="HandheldFriendly" content="True"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta name="MobileOptimized" content="320"/>
+        <meta name="apple-mobile-web-app-capable" content="yes">
+
+
+        <script src="js/lib/jquery/jquery.min.js"></script>
+        <script src="css/lib/bootstrap/js/bootstrap.min.js"></script>
+        <script src="js/lib/angular-1.3.9/angular.js"></script>
+        <script src="js/lib/angular-1.3.9/angular-route.js"></script>
+        <script src="js/lib/leaflet/leaflet.js"></script>
+        <script src="js/lib/ng-table.min.js"></script>
+        <script src="js/lib/ng-table-resizable-columns.js"></script>
+        <script src="js/lib/leaflet.markercluster.js"></script>
+        <script src="js/lib/leaflet.draw/leaflet.draw.js"></script>
+        <script src="js/lib/angular-file-upload.js"></script>
+        <script src="js/lib/ui-bootstrap.min.js"></script>
+        <script src="js/lib/spin.js"></script>
+        <script src="js/lib/angular-loading-1.0/angular-loading.min.js"></script>
+        <script src="js/lib/angular-local-storage-0.1.4/dist/angular-local-storage.js"></script>
+
+        <link rel="icon" type="image/png" href="img/Spirale_noire.png" />
+
+        <link rel="stylesheet" type="text/css" href="js/lib/angular-loading-1.0/angular-loading.css"/>
+
+        <link rel="stylesheet" href="css/lib/leaflet.css">
+        <link rel="stylesheet" href="css/lib/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/lib/bootstrap/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/lib/ng-table.css">
+        <link rel="stylesheet" href="css/lib/MarkerCluster.Default.css">
+        <link rel="stylesheet" href="js/lib/leaflet.draw/leaflet.draw.css">
+        <link rel="stylesheet" href="css/app.css">
+        <title>Suivi protocoles</title>
+    </head>
+    <body>
+        <div>
+            <div ng-controller="baseController">
+                <div usermsg></div>
+                    <div class="navbar navbar-fixed-top" id="main-menu">
+                        <div class="navbar-brand">
+                            <a href="#/apps"><img alt="Brand" style="height: 100%;" src="img/Spirale_orange.png"><span>{{app.name}}</span></a>
+                            <!--<a ng-repeat="item in data" class="navbar-brand" ng-href="#/{{item.name}}/site">{{item.name}}</a>-->
+                        </div>
+                  
+                        <div class="collapse navbar-collapse">
+                            <ul class="nav navbar-nav navbar-left" role="menu">
+                                <li ng-class="{active: item.__active__}" ng-repeat="item in app.menu" ng-if="check(item.restrict)"><a ng-href="{{item.url}}" ng-click="setActive(item)">{{item.label}}</a></li>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right">  
+                                <li ng-if="user">
+                                    <a class="dropdown-toggle" data-toggle="dropdown">{{user.nom_complet}}</a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#/apps">Changer d'application</a></li>
+                                        <li><a href="#/logout">Se déconnecter</a></li>
+                                    </ul>
+                                </li>
+                                <li ng-if="!user"><a href="#/login">Non connecté</a></li>
+                            </ul>
+                        </div>
+                    </div>   
+                    <div ng-view class="container-fluid full-screen"></div>
+                    
+                </div>
+            </div>
+        </div>
+        <div dw-loading="spinner-1" dw-loading-options="{text: 'Chargement des données'}" ng-options="{ text: '', className: 'custom-loading', spinnerOptions: {radius:30, width:8, length: 16, color: '#f0f', direction: -1, speed: 3}}"></div>
+        <script src="js/core.app.js"></script>
+        <script src="js/chiro.app.js"></script>
+    </body>
+</html>

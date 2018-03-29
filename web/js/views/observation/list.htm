@@ -1,0 +1,15 @@
+<div maplist="chiro/observation">
+    <div class="fixed-map large">
+        <div class="map large" leaflet-map data="geoms"></div>
+    </div>
+    <div class="cnt large opaque">
+        <div breadcrumbs appname="{{_appName}}"></div>
+        <div>
+            <filterform url="{{data_url}}" schema="schema.filtering" callback="setData" paginate="true"></filterform>
+            <div tablewrapper class="table" schema="schema" data="data" refname="{{_appName}}/observation">
+                <h1>Inventaires</h1>
+                <a class="btn btn-success float-left" style="margin-right: 1ex;" ng-if="editAccess" ng-href="{{schema.createUrl}}">{{schema.createBtnLabel}}</a>
+            </div>
+        </div>
+    </div>
+</div>

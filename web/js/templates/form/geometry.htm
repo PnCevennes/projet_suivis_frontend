@@ -1,0 +1,22 @@
+<div class="float-none">
+	<div class="map medium" leaflet-map config-url="js/resources/defaults.json"></div>
+    <div style="clear: both;">
+        <table class="table">
+            <tr>
+                <th>Long.</th>
+                <th>Lat.</th>
+            </tr>
+            <tr ng-repeat="point in geom">
+                <!-- <td>{{point[0]}}</td><td>{{point[1]}}</td> -->
+                <td>
+                    <input type="number" step="0.00001" ng-model="update_point($index, 0)" ng-model-options="{ getterSetter: true }"></input>
+                </td>
+                <td>
+                    <input type="number" step="0.00001" ng-model="update_point($index, 1)" ng-model-options="{ getterSetter: true }"></input>
+                </td>
+            </tr>
+        </table>
+    <div>
+</div>
+<input type="hidden" ng-model="geom[0][0]" ng-required="true"></input>
+<input type="hidden" ng-model="geom[0][1]" ng-required="true"></input>

@@ -1,0 +1,9 @@
+require('./display/breadcrumb.directive.js');
+require('./display/detail-display.directive.js');
+require('./display/field-display.directive.js');
+require('./display/filterform.directive.js');
+require('./display/tablewrapper.directive.js');
+require('./display/usermsg.directive.js');
+require('./display/xhrdisplay.directive.js');
+require('./display/leafletmap.directive.js');
+require('./display/maplist.directive.js');

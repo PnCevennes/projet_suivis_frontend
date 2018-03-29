@@ -1,0 +1,14 @@
+<div maplist="{{_appName}}/site">
+    <div class="fixed-map large">
+        <div class="map large" leaflet-map data="geoms"></div>
+    </div>
+    <div class="cnt large opaque">
+        <div breadcrumbs appname="{{_appName}}"></div>
+        <div>
+            <div tablewrapper class="table" schema="schema" data="data" refname="{{_appName}}/site" filter-url="{{data_url}}" filter-callback="setData">
+                <h1>Sites</h1>
+                <a class="btn btn-success" style="margin-right: 1ex;" ng-if="editAccess" ng-href="{{schema.createUrl}}">{{schema.createBtnLabel}}</a>
+            </div>
+        </div>
+    </div>
+</div>

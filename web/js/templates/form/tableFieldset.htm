@@ -1,0 +1,22 @@
+<fieldset>
+    <legend>{{group.label}}</legend>
+    <table class="table table-condensed table-bordered table-fieldset">
+        <tr>
+            <th>&nbsp;</th>
+            <th ng-repeat="title in group.titles">
+                {{title}}
+            </th>
+        </tr>
+        <tr ng-repeat="line in group.fields">
+            <th>{{line.label}}</th>
+            <td ng-repeat="field in line.fields" ng-if="!field.options.dismissed">
+                <input id="{{field.name}}" name="{{field.name}}" type="text" ng-if="field.type=='string' && !field.options.multi" ng-model="data[field.name]" ng-minlength="field.options.minLength" ng-maxlength="field.options.maxLength" ng-required="field.options.minLength>0" ng-disabled="field.options.readOnly">
+                <input id="{{field.name}}" name="{{field.name}}" type="number" min="{{field.options.min}}" max="{{field.options.max}}" step="{{field.options.step}}" ng-if="field.type=='num' && !field.options.multi" ng-model="data[field.name]" ng-disabled="field.options.readOnly">
+                <div id="{{field.name}}" datepick ng-if="field.type=='date' && !field.options.multi" date="data[field.name]" ngrequired="field.options.required" ngdisabled="field.options.readOnly"></div>
+                <input id="{{field.name}}" type="checkbox" ng-if="field.type=='bool' && !field.options.multi" ng-model="data[field.name]" ng-disabled="field.options.readOnly">
+                <select id="{{field.name}}" ng-options="item.id as item.libelle for item in field.options.choices" ng-model="data[field.name]" ng-if="field.type=='select' && !field.options.multi" ng-disabled="field.options.readOnly"></select>
+                <angucompletewrapper id="{{field.name}}" name="{{field.name}}" decorated="true" selectedobject="data[field.name]" url="{{field.options.url}}/" reverseurl="{{field.options.reverseurl}}" titlefield="label" ng-if="field.type=='xhr' && !field.options.multi" initial="data[field.name]" ngrequired="field.options.required" ngdisabled="field.options.readOnly"></angucompletewrapper>
+            </td>
+        </tr>
+    </table>
+</fieldset>

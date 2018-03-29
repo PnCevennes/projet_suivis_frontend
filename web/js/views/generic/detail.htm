@@ -1,0 +1,9 @@
+<div ng-class="{'fixed-map large': schema.mapSize=='large', 'fixed-map _small': schema.mapSize=='small'}">
+    <div ng-class="{'map large': schema.mapSize=='large', 'map _small': schema.mapSize=='small'}" leaflet-map data="geoms"></div>
+</div>
+<div ng-class="{'cnt large': schema.mapSize=='large', 'cnt small': schema.mapSize=='small', 'center-block container': !schema.mapSize}">
+    <div breadcrumbs appname="{{_appName}}"></div>
+    <div class="padded" detail-display schemaurl="{{configUrl}}" generic-data-url="dataUrl" dataid="{{dataId}}" updateurl="{{updateUrl}}">
+        <h1>{{title}}</h1>
+    </div>
+</div>

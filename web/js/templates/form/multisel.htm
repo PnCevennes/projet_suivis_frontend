@@ -1,0 +1,5 @@
+<ul class="list-unstyled">
+    <li ng-repeat="item in schema.options.choices">
+        <label><input type="checkbox" ng-model="tmp_data[item.id]" ng-change="update_values()"/> {{item.libelle}}</label>
+    <li>
+</ul>

@@ -1,0 +1,14 @@
+<div class="center-block container">
+    <h2 class="text-primary">Connexion utilisateur</h2>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label for="login">Utilisateur</label>
+            <input class="form-control" id="login" type="text" ng-model="data['login']"/>
+        </div>
+        <div class="form-group">
+            <label for="pwd">Mot de passe</label>
+            <input class="form-control" id="pwd" type="password" ng-model="data['pass']"/>
+        </div>
+        <button class="btn btn-primary" type="submit" ng-click="send()">Se connecter</button>
+    </form>
+</div>
