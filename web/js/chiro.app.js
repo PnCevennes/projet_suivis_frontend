@@ -485,13 +485,17 @@ angular.module('baseSites').controller('siteEditController', function($scope, $r
 /*
  * controleur pour la carte et la liste des sites
  */
-angular.module('baseSites').controller('siteListController', function($scope, $routeParams, dataServ, mapService, configServ,
-    $loading, userServ, $q, $timeout){
+angular.module('baseSites').controller('siteListController',
+function($scope, $routeParams, dataServ, mapService, configServ, $loading, userServ, $q, $timeout){
 
     var data = [];
     $scope._appName = $routeParams.appName;
+    $scope._currentApp = userServ.getCurrentApp();
+    $scope._currentMenu =($scope._currentApp.menu.filter(
+        function(e){ return e.__active__ == true}
+    ))[0]
     $scope.editAccess = userServ.checkLevel(3);
-    $scope.data_url = $routeParams.appName + '/site';
+    $scope.data_url = $scope._currentMenu.data_url;
     $scope.data = [];
 
 
@@ -507,14 +511,14 @@ angular.module('baseSites').controller('siteListController', function($scope, $r
     });
 
     $scope.setData = function(resp, deferred){
-        $scope.items = resp;
+        $scope.items = resp.features;
         mapService.initialize($scope.schema.mapConfig).then(function(){
-            $scope.data = resp.map(function(item){
+            $scope.data = resp.features.map(function(item){
                 mapService.addGeom(item);
                 return item.properties;
             });
         });
-        $scope.geoms = resp;
+        $scope.geoms = resp.features;
         dfd.resolve('loading data');
         if(deferred){
             deferred.resolve('loading data');
@@ -527,8 +531,9 @@ angular.module('baseSites').controller('siteListController', function($scope, $r
     };
 
     $timeout(function(){
-        configServ.getUrl($scope._appName + '/config/site/list', $scope.setSchema);
+        configServ.getUrl($scope._currentMenu.config_url, $scope.setSchema);
     }, 0);
+
 
 });
 

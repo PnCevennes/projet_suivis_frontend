@@ -1,4 +1,12 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+
+angular.module('appSuiviProtocoles').constant('RESOURCES', 
+    {
+        API_URL: "http://localhost:8000/"
+    }
+)
+
+},{}],2:[function(require,module,exports){
 /*
  * controleur selection app
  */
@@ -15,7 +23,7 @@ angular.module('appSuiviProtocoles').controller('appsController', ['$scope', '$l
     };
 
     $scope.select = function(id){
-        $scope.apps.forEach(function(item){
+        $scope.apps.app.forEach(function(item){
             if(item.id == id){
                 userServ.setCurrentApp(item);
                 $scope.$emit('app:select', item);
@@ -23,11 +31,11 @@ angular.module('appSuiviProtocoles').controller('appsController', ['$scope', '$l
         });
     };
 
-    configServ.getUrl('config/apps', $scope.setData);
+    configServ.getUrl('config?app=suivis&vue=apps', $scope.setData, true);
 }]);
 
 
-},{}],2:[function(require,module,exports){
+},{}],3:[function(require,module,exports){
 /*
  * Controleur de base
  */
@@ -42,10 +50,7 @@ angular.module('appSuiviProtocoles').controller('baseController', ['$scope', '$l
         $scope.data = resp;
 
         // FIXME DEBUG
-        configServ.put('debug', false);
-        /*
-        userServ.login('as_test', 'test');
-        */
+        configServ.put('debug', true);
 
         //configServ.put('app', $scope.data[0]);
         //$scope._appName = $scope.data[0].name;
@@ -74,10 +79,14 @@ angular.module('appSuiviProtocoles').controller('baseController', ['$scope', '$l
         $scope.$on('app:select', function(ev, app){
             $scope.app = app;
             $scope.setActive(app.menu[0]);
+            console.log($scope.app);
+            
         });
 
         $scope.$on('app:selection', function(ev){
             $scope.app = {name: "Suivi des protocoles", menu: []};
+            console.log($scope.app);
+            
         });
     };
 
@@ -97,10 +106,10 @@ angular.module('appSuiviProtocoles').controller('baseController', ['$scope', '$l
         return userServ.checkLevel(val);
     };
 
-    configServ.getUrl('config/apps', $scope.success);
+    configServ.getUrl('config?app=suivis&vue=apps', $scope.success);
 }]);
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 
 /*
  * Configuration des routes
@@ -136,7 +145,7 @@ require('./login.controller.js');
 require('./logout.controller.js');
 require('./apps.controller.js');
 
-},{"./apps.controller.js":1,"./base.controller.js":2,"./login.controller.js":8,"./logout.controller.js":9}],4:[function(require,module,exports){
+},{"./apps.controller.js":2,"./base.controller.js":3,"./login.controller.js":9,"./logout.controller.js":10}],5:[function(require,module,exports){
 angular.module('generiques').controller('genericDetailController', [ '$scope', '$routeParams', 'configServ', 'dataServ', 'userServ', '$loading', 'mapService', '$q', '$timeout', function($scope, $routeParams, configServ, dataServ, userServ, $loading, mapService, $q, $timeout){
 
     $scope._appName = $routeParams.appName;
@@ -166,7 +175,7 @@ angular.module('generiques').controller('genericDetailController', [ '$scope', '
 }]);
 
 
-},{}],5:[function(require,module,exports){
+},{}],6:[function(require,module,exports){
 angular.module('generiques').controller('genericEditController', ['$scope', '$routeParams', 'configServ', 'dataServ', 'userServ', '$loading', 'mapService', '$q', '$timeout', 'userMessages', '$location', function($scope, $routeParams, configServ, dataServ, userServ, $loading, mapService, $q, $timeout, userMessages, $location){
 
     $scope._appName = $routeParams.appName;
@@ -237,7 +246,7 @@ angular.module('generiques').controller('genericEditController', ['$scope', '$ro
 }]);
 
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 angular.module('generiques').controller('genericListController', ['$scope', '$routeParams', 'configServ', 'dataServ', 'userServ', '$loading', 'mapService', '$q', '$timeout', function($scope, $routeParams, configServ, dataServ, userServ, $loading, mapService, $q, $timeout){
 
     $scope._appName = $routeParams.appName;
@@ -285,7 +294,7 @@ angular.module('generiques').controller('genericListController', ['$scope', '$ro
 }]);
 
 
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 /*
  * configuration des routes
  */
@@ -317,14 +326,14 @@ require('./generic-detail.controller.js');
 require('./generic-edit.controller.js');
 require('./generic-list.controller.js');
 
-},{"./generic-detail.controller.js":4,"./generic-edit.controller.js":5,"./generic-list.controller.js":6}],8:[function(require,module,exports){
+},{"./generic-detail.controller.js":5,"./generic-edit.controller.js":6,"./generic-list.controller.js":7}],9:[function(require,module,exports){
 /*
  * controleur login
  */
 angular.module('appSuiviProtocoles').controller('loginController', ['$scope', '$location', '$rootScope', 'userServ', 'userMessages', 'configServ' ,function($scope, $location, $rootScope, userServ, userMessages, configServ){
     if(userServ.getUser()){
         $scope.data = {
-            login: userServ.getUser().identifiant,
+            login: userServ.getUser().user.identifiant,
             pass: userServ.getUser().pass, 
         };
     }
@@ -333,7 +342,7 @@ angular.module('appSuiviProtocoles').controller('loginController', ['$scope', '$
     }
 
     $scope.$on('user:login', function(ev, user){
-        userMessages.infoMessage = user.nom_complet.replace(/(\w+) (\w+)/, 'Bienvenue $2 $1 !');
+        userMessages.infoMessage =  'Bienvenue ' + user.user.identifiant;
         
         $location.url('apps'); 
     });
@@ -348,7 +357,7 @@ angular.module('appSuiviProtocoles').controller('loginController', ['$scope', '$
 }]);
 
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 /*
  * controleur logout
  */
@@ -362,8 +371,13 @@ angular.module('appSuiviProtocoles').controller('logoutController', ['$scope', '
 }]);
 
 
-},{}],10:[function(require,module,exports){
-angular.module('appSuiviProtocoles', ['generiques', 'baseSites', 'baseObservations', 'baseTaxons', 'baseValidation', 'biometrie', 'suiviProtocoleServices', 'FormDirectives', 'DisplayDirectives', 'ui.bootstrap', 'darthwade.loading', 'SimpleMap', 'LocalStorageModule', 'ngTableResizableColumns']);
+},{}],11:[function(require,module,exports){
+angular.module('appSuiviProtocoles', [
+    'generiques', 'baseSites', 'baseObservations', 'baseTaxons', 'baseValidation', 
+    'biometrie', 'suiviProtocoleServices', 'FormDirectives', 'DisplayDirectives', 
+    'ui.bootstrap', 'darthwade.loading', 'SimpleMap', 'LocalStorageModule', 
+    'ngTableResizableColumns'
+]);
 
 // generiques
 angular.module('generiques', ['suiviProtocoleServices', 'SimpleMap', 'ngRoute', 'ngTable']);
@@ -381,13 +395,17 @@ angular.module('DisplayDirectives', ['SimpleMap']);
 angular.module('SimpleMap', ['suiviProtocoleServices']);
 
 
+
+
 require('./services/services.js');
 require('./directives/display.js');
 require('./directives/form.js');
 require('./controllers/base.js');
 require('./controllers/generic.js');
 
-},{"./controllers/base.js":3,"./controllers/generic.js":7,"./directives/display.js":11,"./directives/form.js":21,"./services/services.js":42}],11:[function(require,module,exports){
+
+require('./constant.js');
+},{"./constant.js":1,"./controllers/base.js":4,"./controllers/generic.js":8,"./directives/display.js":12,"./directives/form.js":22,"./services/services.js":43}],12:[function(require,module,exports){
 require('./display/breadcrumb.directive.js');
 require('./display/detail-display.directive.js');
 require('./display/field-display.directive.js');
@@ -398,7 +416,7 @@ require('./display/xhrdisplay.directive.js');
 require('./display/leafletmap.directive.js');
 require('./display/maplist.directive.js');
 
-},{"./display/breadcrumb.directive.js":12,"./display/detail-display.directive.js":13,"./display/field-display.directive.js":14,"./display/filterform.directive.js":15,"./display/leafletmap.directive.js":16,"./display/maplist.directive.js":17,"./display/tablewrapper.directive.js":18,"./display/usermsg.directive.js":19,"./display/xhrdisplay.directive.js":20}],12:[function(require,module,exports){
+},{"./display/breadcrumb.directive.js":13,"./display/detail-display.directive.js":14,"./display/field-display.directive.js":15,"./display/filterform.directive.js":16,"./display/leafletmap.directive.js":17,"./display/maplist.directive.js":18,"./display/tablewrapper.directive.js":19,"./display/usermsg.directive.js":20,"./display/xhrdisplay.directive.js":21}],13:[function(require,module,exports){
 angular.module('DisplayDirectives').directive('breadcrumbs', function(){
     return {
         restrict: 'A',
@@ -460,7 +478,7 @@ angular.module('DisplayDirectives').directive('breadcrumbs', function(){
 });
 
 
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 angular.module('DisplayDirectives').directive('detailDisplay', function(){
     return{
         restrict: 'A',
@@ -561,7 +579,7 @@ angular.module('DisplayDirectives').directive('detailDisplay', function(){
 });
 
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 angular.module('DisplayDirectives').directive('fieldDisplay', function(){
     return {
         restrict: 'A',
@@ -575,7 +593,7 @@ angular.module('DisplayDirectives').directive('fieldDisplay', function(){
 });
 
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 angular.module('DisplayDirectives').directive('filterform', function(){
     return {
         restrict: 'E',
@@ -642,11 +660,16 @@ angular.module('DisplayDirectives').directive('filterform', function(){
                         }
                     }
                 });
+                extraParam = ''
+                url = $scope.url.split("?")[0]
+                if ($scope.url.split("?")[1]){
+                    extraParam = $scope.url.split("?")[1]+"&"
+                }
                 if(_qs.length){
-                    var _url = $scope.url + "?page="+$scope.pageNum+"&limit="+$scope.schema.limit+"&filters=" + angular.toJson(_qs);
+                    var _url = url + "?" + extraParam + "offset="+$scope.pageNum+"&limit="+$scope.schema.limit+"&filters=" + angular.toJson(_qs);
                 }
                 else{
-                    var _url = $scope.url + "?page="+$scope.pageNum+"&limit="+$scope.schema.limit;
+                    var _url = url +  "?" + extraParam + "offset="+$scope.pageNum+"&limit="+$scope.schema.limit;
                 }
                 configServ.put($scope.url, 
                     {
@@ -668,9 +691,9 @@ angular.module('DisplayDirectives').directive('filterform', function(){
                     //envoi des données filtrées à la vue
                     $scope.collapseFilters = false;
                     $scope.counts.total = resp.total;
-                    $scope.counts.current = resp.filteredCount;
+                    $scope.counts.current = resp.total_filtered;
                     $scope.maxCount = Math.min(($scope.pageNum+1) * $scope.schema.limit, $scope.counts.current);
-                    $scope.callback(resp.filtered, dfd);
+                    $scope.callback(resp.items, dfd);
                 }, null, true);
             };
 
@@ -718,7 +741,7 @@ angular.module('DisplayDirectives').directive('filterform', function(){
 });
 
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 /*
  * directive pour l'affichage et l'édition des cartes
  * params:
@@ -1041,7 +1064,7 @@ angular.module('SimpleMap').directive('leafletMap', function(){
 });
 
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 angular.module('SimpleMap').directive('maplist', ['$rootScope', '$timeout', 'mapService' ,function($rootScope, $timeout, mapService){
     return {
         restrict: 'A',
@@ -1131,7 +1154,7 @@ angular.module('SimpleMap').directive('maplist', ['$rootScope', '$timeout', 'map
 }]);
 
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 angular.module('DisplayDirectives').directive('tablewrapper', function(){
     return {
         restrict: 'A',
@@ -1144,7 +1167,8 @@ angular.module('DisplayDirectives').directive('tablewrapper', function(){
         },
         transclude: true,
         templateUrl: 'js/templates/display/tableWrapper.htm',
-        controller: ['$scope', '$rootScope', '$timeout', '$filter', 'configServ', 'userServ', 'ngTableParams', function($scope, $rootScope, $timeout, $filter, configServ, userServ, ngTableParams){
+        controller: ['$scope', '$rootScope', '$timeout', '$filter', 'configServ', 'userServ', 'ngTableParams', 
+            function($scope, $rootScope, $timeout, $filter, configServ, userServ, ngTableParams){
             $scope.currentItem = null;
             $scope._checkall = false;
             filterIds = [];
@@ -1398,7 +1422,7 @@ angular.module('DisplayDirectives').directive('tablewrapper', function(){
 });
 
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 /**
  * Directive pour l'affichage des messages utilisateur en popover
  */
@@ -1454,7 +1478,7 @@ angular.module('DisplayDirectives').directive('usermsg', ['userMessages', '$time
 }]);
 
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 /**
  * fonction qui renvoie le label associé à un identifiant
  * paramètres : 
@@ -1483,7 +1507,7 @@ angular.module('DisplayDirectives').directive('xhrdisplay', function(){
 });
 
 
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 require('./form/angucompletewrapper.directive.js');
 require('./form/calculated.directive.js');
 require('./form/datepick.directive.js');
@@ -1500,7 +1524,7 @@ require('./form/table-fieldset.directive.js');
 require('./form/filetype.directive.js');
 require('./form/fileup.directive.js');
 
-},{"./form/angucompletewrapper.directive.js":22,"./form/calculated.directive.js":23,"./form/datepick.directive.js":24,"./form/dynform.directive.js":25,"./form/fileinput.directive.js":26,"./form/filetype.directive.js":27,"./form/fileup.directive.js":28,"./form/geometry.directive.js":29,"./form/multi.directive.js":30,"./form/multisel.directive.js":31,"./form/simpleform.directive.js":32,"./form/spreadsheet.directive.js":33,"./form/subeditform.directive.js":34,"./form/subform.directive.js":35,"./form/table-fieldset.directive.js":36}],22:[function(require,module,exports){
+},{"./form/angucompletewrapper.directive.js":23,"./form/calculated.directive.js":24,"./form/datepick.directive.js":25,"./form/dynform.directive.js":26,"./form/fileinput.directive.js":27,"./form/filetype.directive.js":28,"./form/fileup.directive.js":29,"./form/geometry.directive.js":30,"./form/multi.directive.js":31,"./form/multisel.directive.js":32,"./form/simpleform.directive.js":33,"./form/spreadsheet.directive.js":34,"./form/subeditform.directive.js":35,"./form/subform.directive.js":36,"./form/table-fieldset.directive.js":37}],23:[function(require,module,exports){
 /**
  * wrapper pour la directive typeahead permettant de l'utiliser en édition
  * requete inverse au serveur pour obtenir un label lié à l'ID fourni et passage
@@ -1561,7 +1585,7 @@ angular.module('FormDirectives').directive('angucompletewrapper', ['dataServ', '
     };
 }]);
 
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 /**
  * Directive qui permet d'avoir un champ de formulaire de type valeur calculée modifiable
  * params: 
@@ -1603,7 +1627,7 @@ angular.module('FormDirectives').directive('calculated', function(){
 });
 
 
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 /*
  * datepicker
  * params:
@@ -1652,7 +1676,7 @@ angular.module('FormDirectives').directive('datepick', function(){
 });
 
 
-},{}],25:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 /**
  * génération automatique de formulaire à partir d'un json qui représente le schéma du formulaire
  * params:
@@ -1675,7 +1699,7 @@ angular.module('FormDirectives').directive('dynform', function(){
 });
 
 
-},{}],26:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 angular.module('FormDirectives').directive('fileinput', function(){
     return {
         restrict: 'E',
@@ -1764,7 +1788,7 @@ angular.module('FormDirectives').directive('fileinput', function(){
 });
 
 
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 /*
  * Directive qui permet d'avoir un champ de formulaire de type fichier et qui l'envoie au serveur
  * envoie un fichier au serveur qui renvoie un identifiant de création.
@@ -1835,7 +1859,7 @@ angular.module('FormDirectives').directive('filetype', function(){
 });
 
 
-},{}],28:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 angular.module('FormDirectives').directive('fileup', function(){
     return {
         restrict: 'E',
@@ -1911,7 +1935,7 @@ angular.module('FormDirectives').directive('fileup', function(){
     };
 });
 
-},{}],29:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 /*
  * directive pour la gestion des données spatiales
  * params:
@@ -1970,6 +1994,7 @@ angular.module('FormDirectives').directive('geometry', function(){
                 $scope.configUrl = 'js/resources/defaults.json';
             }
             else{
+              // $scope.configUrl = $scope.options.configUrl; A voir s'il ne faut pas mieu utiliser configUrl
                 $scope.configUrl = $scope.options.mapConfig;
             }
 
@@ -2084,7 +2109,7 @@ angular.module('FormDirectives').directive('geometry', function(){
     };
 });
 
-},{}],30:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 /**
  * génération d'un champ formulaire de type multivalué
  * params:
@@ -2164,7 +2189,7 @@ angular.module('FormDirectives').directive('multi', ['userMessages', '$timeout',
 }]);
 
 
-},{}],31:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 angular.module('FormDirectives').directive('multisel', function(){
     return {
         restrict: 'E',
@@ -2226,7 +2251,7 @@ angular.module('FormDirectives').directive('multisel', function(){
 });
 
 
-},{}],32:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 /*
  * directive pour l'affichage simple d'un formulaire
  * params: 
@@ -2393,7 +2418,7 @@ angular.module('FormDirectives').directive('simpleform', function(){
                         if(field.type != 'group'){
                             $scope.data[field.name] = resp[field.name] != undefined ? angular.copy(resp[field.name]) : field.default != undefined ? field.default : null;
                             if(field.type=='hidden' && field.options && field.options.ref=='userId' && $scope.data[field.name]==null && userServ.checkLevel(field.options.restrictLevel || 0)){
-                                $scope.data[field.name] = userServ.getUser().id_role;
+                                $scope.data[field.name] = userServ.getUser().user.id_role;
                             }
                         }
                         else{
@@ -2533,7 +2558,7 @@ angular.module('FormDirectives').directive('simpleform', function(){
 });
 
 
-},{}],33:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 /**
  * Directive pour l'affichage d'un tableau de saisie rapide style feuille de calcul
  * params : 
@@ -2605,7 +2630,7 @@ angular.module('FormDirectives').directive('spreadsheet', function(){
                                 /*
                                  * ajout du numérisateur à la ligne
                                  */
-                                line[field.name] = userServ.getUser().id_role;
+                                line[field.name] = userServ.getUser().user.id_role;
                             }
                         }
                         else{
@@ -2663,7 +2688,7 @@ angular.module('FormDirectives').directive('spreadsheet', function(){
 });
 
 
-},{}],34:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 angular.module('FormDirectives').directive('subeditform', function(){
     return{
         restrict: 'A',
@@ -2722,7 +2747,7 @@ angular.module('FormDirectives').directive('subeditform', function(){
 });
 
 
-},{}],35:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 angular.module('FormDirectives').directive('subform', function(){
     return {
         restrict: 'E',
@@ -2766,7 +2791,7 @@ angular.module('FormDirectives').directive('subform', function(){
 });
 
 
-},{}],36:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 angular.module('FormDirectives').directive('tableFieldset', function(){
     return {
         restrict: 'E',
@@ -2781,7 +2806,7 @@ angular.module('FormDirectives').directive('tableFieldset', function(){
 });
 
 
-},{}],37:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 /**
  * Service de récupération et stockage des configurations
  * Utiliser pour stocker les variables globales ou les éléments de configuration de l'application
@@ -2790,7 +2815,6 @@ angular.module('suiviProtocoleServices').service('configServ', ['dataServ', 'loc
     var cache = {};
 
     this.bc = null;
-
 
     /*
      * charge des informations depuis une url si elles ne sont pas déja en cache
@@ -2846,17 +2870,19 @@ angular.module('suiviProtocoleServices').service('configServ', ['dataServ', 'loc
 }]);
 
 
-},{}],38:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 /**
  * Service de gestion des communications avec le serveur
  */
-angular.module('suiviProtocoleServices').service('dataServ', ['$http', '$filter', 'userMessages', function($http, $filter, userMessages){
+angular.module('suiviProtocoleServices').service('dataServ', 
+['$http', '$filter', 'userMessages', 'RESOURCES', function($http, $filter, userMessages, RESOURCES){
     //cache de données pour ne pas recharger systématiquement les données du serveur
     var cache = {};
 
     //flag ordonnant la recharge des données plutôt que l'utilisation du cache
     this.forceReload = false;
-
+    this.baseurl = RESOURCES.API_URL;
+    // this.baseurl = 'http://localhost:8000/';
     /*
      * contacte le serveur en GET et met en cache les données renvoyées
      * Si les données sont déja en cache, retourne le données directement, à moins 
@@ -2878,7 +2904,7 @@ angular.module('suiviProtocoleServices').service('dataServ', ['$http', '$filter'
             error = function(err){console.log(err)};
         }
         if(cache[url] == undefined || force || this.forceReload){
-            $http.get(url)
+            $http.get(this.baseurl + url)
                 .then(function(data){
                     this.forceReload = false;
                     cache[url] = data.data;
@@ -2919,7 +2945,7 @@ angular.module('suiviProtocoleServices').service('dataServ', ['$http', '$filter'
      *  error: la callback de traitement en cas d'erreur gérable
      */
     this.post = function(url, data, success, error){
-        $http.post(url, data).success(success).error(error || function(err){console.log(err);});
+        $http.post(this.baseurl + url, data).success(success).error(error || function(err){console.log(err);});
     };
 
     /*
@@ -2928,7 +2954,7 @@ angular.module('suiviProtocoleServices').service('dataServ', ['$http', '$filter'
      *  cf. this.post
      */
     this.put = function(url, data, success, error){
-        $http.put(url, data).success(success).error(error || function(err){console.log(err);});
+        $http.put(this.baseurl + url, data).success(success).error(error || function(err){console.log(err);});
     };
 
     /*
@@ -2939,13 +2965,13 @@ angular.module('suiviProtocoleServices').service('dataServ', ['$http', '$filter'
      *  error: la callback de traitement en cas d'erreur gérable
      */
     this.delete = function(url, success, error){
-        $http.delete(url).success(success).error(error || function(err){console.log(err);});
+        $http.delete(this.baseurl + url).success(success).error(error || function(err){console.log(err);});
     };
 
 }]);
 
 
-},{}],39:[function(require,module,exports){
+},{}],40:[function(require,module,exports){
 /**
  * filtre basique - transforme une date yyyy-mm-dd en dd/mm/yyyy pour l'affichage
  */
@@ -2961,7 +2987,7 @@ angular.module('suiviProtocoleServices').filter('datefr', function(){
 });
 
 
-},{}],40:[function(require,module,exports){
+},{}],41:[function(require,module,exports){
 angular.module('SimpleMap').factory('LeafletServices', ['$http', function($http) {
     return {
       layer : {}, 
@@ -2989,13 +3015,13 @@ angular.module('SimpleMap').factory('LeafletServices', ['$http', function($http)
 }]);
 
 
-},{}],41:[function(require,module,exports){
+},{}],42:[function(require,module,exports){
 angular.module('SimpleMap').factory('mapService', function(){
     return {};
 });
 
 
-},{}],42:[function(require,module,exports){
+},{}],43:[function(require,module,exports){
 require('./configserv.service.js');
 require('./dataserv.service.js');
 require('./userserv.service.js');
@@ -3007,7 +3033,7 @@ require('./spreadsheet.service.js');
 require('./leafletservice.service.js');
 require('./mapservice.service.js');
 
-},{"./configserv.service.js":37,"./dataserv.service.js":38,"./datefr.filter.js":39,"./leafletservice.service.js":40,"./mapservice.service.js":41,"./spreadsheet.service.js":43,"./tmultisel.filter.js":44,"./tselect.filter.js":45,"./usermessages.service.js":46,"./userserv.service.js":47}],43:[function(require,module,exports){
+},{"./configserv.service.js":38,"./dataserv.service.js":39,"./datefr.filter.js":40,"./leafletservice.service.js":41,"./mapservice.service.js":42,"./spreadsheet.service.js":44,"./tmultisel.filter.js":45,"./tselect.filter.js":46,"./usermessages.service.js":47,"./userserv.service.js":48}],44:[function(require,module,exports){
 angular.module('FormDirectives').factory('SpreadSheet', function(){
     return {
         errorMessage: {},
@@ -3016,7 +3042,7 @@ angular.module('FormDirectives').factory('SpreadSheet', function(){
 });
 
 
-},{}],44:[function(require,module,exports){
+},{}],45:[function(require,module,exports){
 angular.module('suiviProtocoleServices').filter('tmultisel', function(){
     return function(input, param){
         if(!param){
@@ -3040,7 +3066,7 @@ angular.module('suiviProtocoleServices').filter('tmultisel', function(){
 });
 
 
-},{}],45:[function(require,module,exports){
+},{}],46:[function(require,module,exports){
 /**
  * Affichage du label d'une liste déroulante à partir de son identifiant
  */
@@ -3060,7 +3086,7 @@ angular.module('suiviProtocoleServices').filter('tselect', ['$filter', function(
 }]);
 
 
-},{}],46:[function(require,module,exports){
+},{}],47:[function(require,module,exports){
 /*
  * messages utilisateurs
  */
@@ -3081,11 +3107,12 @@ angular.module('DisplayDirectives').service('userMessages', function(){
 });
 
 
-},{}],47:[function(require,module,exports){
+},{}],48:[function(require,module,exports){
 /*
  * service utilisateur
  */
-angular.module('suiviProtocoleServices').service('userServ', ['dataServ', '$rootScope', 'localStorageService', function(dataServ, $rootScope, localStorageService){
+angular.module('suiviProtocoleServices').service(
+    'userServ', ['dataServ', '$rootScope', 'localStorageService', function(dataServ, $rootScope, localStorageService){
     var _user = null;
     var _tmp_password = '';
 
@@ -3093,7 +3120,7 @@ angular.module('suiviProtocoleServices').service('userServ', ['dataServ', '$root
         if(!_user){
             var tmp_user = localStorageService.get('user');
             if(tmp_user){
-                this.login(tmp_user.identifiant, tmp_user.pass);
+                this.login(tmp_user.user.identifiant, tmp_user.pass);
                 _user = tmp_user;
             }
         }
@@ -3114,7 +3141,7 @@ angular.module('suiviProtocoleServices').service('userServ', ['dataServ', '$root
     
     this.checkLevel = angular.bind(this, function(level){
         try{
-            return this.getUser().apps[this.getCurrentApp().appId] >= level;
+            return this.getUser().user.apps[this.getCurrentApp().appId] >= level;
         }
         catch(e){
             return false;
@@ -3130,14 +3157,14 @@ angular.module('suiviProtocoleServices').service('userServ', ['dataServ', '$root
 
     this.login = function(login, password, app){
         _tmp_password = password;
-        dataServ.post('users/login', {login: login, pass: password},
+        dataServ.post('auth/login', {login: login, password: password, id_application: 100, with_cruved: false},
             this.connected,
             this.error
-            );
+        );
     };
 
     this.logout = function(){
-        dataServ.get('users/logout', 
+        dataServ.get('auth/logout', 
                 this.disconnected, 
                 function(){}, 
                 true);
@@ -3165,4 +3192,4 @@ angular.module('suiviProtocoleServices').service('userServ', ['dataServ', '$root
 }]);
 
 
-},{}]},{},[10]);
+},{}]},{},[11]);
