@@ -13,6 +13,16 @@ TODO
 Installation
 ------------
 
+Copier le fichier de paramètres et adapter en fonction: 
+```
+  cp web_src/core/constant.js.sample web_src/core/constant.js
+```
+
+Générer les fichiers javascript 
+```
+  ./web_src/compile.sh
+```
+
 Rendre le répertoire web accessible par apache ou nginx
 
 Technologies
