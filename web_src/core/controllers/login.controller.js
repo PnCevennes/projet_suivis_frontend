@@ -4,7 +4,7 @@
 angular.module('appSuiviProtocoles').controller('loginController', ['$scope', '$location', '$rootScope', 'userServ', 'userMessages', 'configServ' ,function($scope, $location, $rootScope, userServ, userMessages, configServ){
     if(userServ.getUser()){
         $scope.data = {
-            login: userServ.getUser().identifiant,
+            login: userServ.getUser().user.identifiant,
             pass: userServ.getUser().pass, 
         };
     }
@@ -13,7 +13,7 @@ angular.module('appSuiviProtocoles').controller('loginController', ['$scope', '$
     }
 
     $scope.$on('user:login', function(ev, user){
-        userMessages.infoMessage = user.nom_complet.replace(/(\w+) (\w+)/, 'Bienvenue $2 $1 !');
+        userMessages.infoMessage =  'Bienvenue ' + user.user.identifiant;
         
         $location.url('apps'); 
     });

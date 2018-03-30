@@ -1,7 +1,8 @@
 /*
  * service utilisateur
  */
-angular.module('suiviProtocoleServices').service('userServ', ['dataServ', '$rootScope', 'localStorageService', function(dataServ, $rootScope, localStorageService){
+angular.module('suiviProtocoleServices').service(
+    'userServ', ['dataServ', '$rootScope', 'localStorageService', function(dataServ, $rootScope, localStorageService){
     var _user = null;
     var _tmp_password = '';
 
@@ -9,7 +10,7 @@ angular.module('suiviProtocoleServices').service('userServ', ['dataServ', '$root
         if(!_user){
             var tmp_user = localStorageService.get('user');
             if(tmp_user){
-                this.login(tmp_user.identifiant, tmp_user.pass);
+                this.login(tmp_user.user.identifiant, tmp_user.pass);
                 _user = tmp_user;
             }
         }
@@ -30,7 +31,7 @@ angular.module('suiviProtocoleServices').service('userServ', ['dataServ', '$root
     
     this.checkLevel = angular.bind(this, function(level){
         try{
-            return this.getUser().apps[this.getCurrentApp().appId] >= level;
+            return this.getUser().user.apps[this.getCurrentApp().appId] >= level;
         }
         catch(e){
             return false;
@@ -46,14 +47,14 @@ angular.module('suiviProtocoleServices').service('userServ', ['dataServ', '$root
 
     this.login = function(login, password, app){
         _tmp_password = password;
-        dataServ.post('users/login', {login: login, pass: password},
+        dataServ.post('auth/login', {login: login, password: password, id_application: 100, with_cruved: false},
             this.connected,
             this.error
-            );
+        );
     };
 
     this.logout = function(){
-        dataServ.get('users/logout', 
+        dataServ.get('auth/logout', 
                 this.disconnected, 
                 function(){}, 
                 true);

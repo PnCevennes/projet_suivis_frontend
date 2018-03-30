@@ -7,7 +7,6 @@ angular.module('suiviProtocoleServices').service('configServ', ['dataServ', 'loc
 
     this.bc = null;
 
-
     /*
      * charge des informations depuis une url si elles ne sont pas déja en cache
      * et les retourne via une callback. Si les variables sont déjà en cache, les 

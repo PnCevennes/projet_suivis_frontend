@@ -64,11 +64,16 @@ angular.module('DisplayDirectives').directive('filterform', function(){
                         }
                     }
                 });
+                extraParam = ''
+                url = $scope.url.split("?")[0]
+                if ($scope.url.split("?")[1]){
+                    extraParam = $scope.url.split("?")[1]+"&"
+                }
                 if(_qs.length){
-                    var _url = $scope.url + "?page="+$scope.pageNum+"&limit="+$scope.schema.limit+"&filters=" + angular.toJson(_qs);
+                    var _url = url + "?" + extraParam + "offset="+$scope.pageNum+"&limit="+$scope.schema.limit+"&filters=" + angular.toJson(_qs);
                 }
                 else{
-                    var _url = $scope.url + "?page="+$scope.pageNum+"&limit="+$scope.schema.limit;
+                    var _url = url +  "?" + extraParam + "offset="+$scope.pageNum+"&limit="+$scope.schema.limit;
                 }
                 configServ.put($scope.url, 
                     {
@@ -90,9 +95,9 @@ angular.module('DisplayDirectives').directive('filterform', function(){
                     //envoi des données filtrées à la vue
                     $scope.collapseFilters = false;
                     $scope.counts.total = resp.total;
-                    $scope.counts.current = resp.filteredCount;
+                    $scope.counts.current = resp.total_filtered;
                     $scope.maxCount = Math.min(($scope.pageNum+1) * $scope.schema.limit, $scope.counts.current);
-                    $scope.callback(resp.filtered, dfd);
+                    $scope.callback(resp.items, dfd);
                 }, null, true);
             };
 

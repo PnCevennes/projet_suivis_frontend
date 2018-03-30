@@ -69,7 +69,7 @@ angular.module('FormDirectives').directive('spreadsheet', function(){
                                 /*
                                  * ajout du numérisateur à la ligne
                                  */
-                                line[field.name] = userServ.getUser().id_role;
+                                line[field.name] = userServ.getUser().user.id_role;
                             }
                         }
                         else{

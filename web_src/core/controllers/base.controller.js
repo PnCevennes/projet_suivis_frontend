@@ -12,10 +12,7 @@ angular.module('appSuiviProtocoles').controller('baseController', ['$scope', '$l
         $scope.data = resp;
 
         // FIXME DEBUG
-        configServ.put('debug', false);
-        /*
-        userServ.login('as_test', 'test');
-        */
+        configServ.put('debug', true);
 
         //configServ.put('app', $scope.data[0]);
         //$scope._appName = $scope.data[0].name;
@@ -44,10 +41,14 @@ angular.module('appSuiviProtocoles').controller('baseController', ['$scope', '$l
         $scope.$on('app:select', function(ev, app){
             $scope.app = app;
             $scope.setActive(app.menu[0]);
+            console.log($scope.app);
+            
         });
 
         $scope.$on('app:selection', function(ev){
             $scope.app = {name: "Suivi des protocoles", menu: []};
+            console.log($scope.app);
+            
         });
     };
 
@@ -67,5 +68,5 @@ angular.module('appSuiviProtocoles').controller('baseController', ['$scope', '$l
         return userServ.checkLevel(val);
     };
 
-    configServ.getUrl('config/apps', $scope.success);
+    configServ.getUrl('config?app=suivis&vue=apps', $scope.success);
 }]);

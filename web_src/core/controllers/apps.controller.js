@@ -14,7 +14,7 @@ angular.module('appSuiviProtocoles').controller('appsController', ['$scope', '$l
     };
 
     $scope.select = function(id){
-        $scope.apps.forEach(function(item){
+        $scope.apps.app.forEach(function(item){
             if(item.id == id){
                 userServ.setCurrentApp(item);
                 $scope.$emit('app:select', item);
@@ -22,6 +22,6 @@ angular.module('appSuiviProtocoles').controller('appsController', ['$scope', '$l
         });
     };
 
-    configServ.getUrl('config/apps', $scope.setData);
+    configServ.getUrl('config?app=suivis&vue=apps', $scope.setData, true);
 }]);
 

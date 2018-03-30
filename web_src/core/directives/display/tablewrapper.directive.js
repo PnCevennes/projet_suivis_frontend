@@ -10,7 +10,8 @@ angular.module('DisplayDirectives').directive('tablewrapper', function(){
         },
         transclude: true,
         templateUrl: 'js/templates/display/tableWrapper.htm',
-        controller: ['$scope', '$rootScope', '$timeout', '$filter', 'configServ', 'userServ', 'ngTableParams', function($scope, $rootScope, $timeout, $filter, configServ, userServ, ngTableParams){
+        controller: ['$scope', '$rootScope', '$timeout', '$filter', 'configServ', 'userServ', 'ngTableParams', 
+            function($scope, $rootScope, $timeout, $filter, configServ, userServ, ngTableParams){
             $scope.currentItem = null;
             $scope._checkall = false;
             filterIds = [];

@@ -164,7 +164,7 @@ angular.module('FormDirectives').directive('simpleform', function(){
                         if(field.type != 'group'){
                             $scope.data[field.name] = resp[field.name] != undefined ? angular.copy(resp[field.name]) : field.default != undefined ? field.default : null;
                             if(field.type=='hidden' && field.options && field.options.ref=='userId' && $scope.data[field.name]==null && userServ.checkLevel(field.options.restrictLevel || 0)){
-                                $scope.data[field.name] = userServ.getUser().id_role;
+                                $scope.data[field.name] = userServ.getUser().user.id_role;
                             }
                         }
                         else{

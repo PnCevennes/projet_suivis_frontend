@@ -1,13 +1,15 @@
 /**
  * Service de gestion des communications avec le serveur
  */
-angular.module('suiviProtocoleServices').service('dataServ', ['$http', '$filter', 'userMessages', function($http, $filter, userMessages){
+angular.module('suiviProtocoleServices').service('dataServ', 
+['$http', '$filter', 'userMessages', 'RESOURCES', function($http, $filter, userMessages, RESOURCES){
     //cache de données pour ne pas recharger systématiquement les données du serveur
     var cache = {};
 
     //flag ordonnant la recharge des données plutôt que l'utilisation du cache
     this.forceReload = false;
-
+    this.baseurl = RESOURCES.API_URL;
+    // this.baseurl = 'http://localhost:8000/';
     /*
      * contacte le serveur en GET et met en cache les données renvoyées
      * Si les données sont déja en cache, retourne le données directement, à moins 
@@ -29,7 +31,7 @@ angular.module('suiviProtocoleServices').service('dataServ', ['$http', '$filter'
             error = function(err){console.log(err)};
         }
         if(cache[url] == undefined || force || this.forceReload){
-            $http.get(url)
+            $http.get(this.baseurl + url)
                 .then(function(data){
                     this.forceReload = false;
                     cache[url] = data.data;
@@ -70,7 +72,7 @@ angular.module('suiviProtocoleServices').service('dataServ', ['$http', '$filter'
      *  error: la callback de traitement en cas d'erreur gérable
      */
     this.post = function(url, data, success, error){
-        $http.post(url, data).success(success).error(error || function(err){console.log(err);});
+        $http.post(this.baseurl + url, data).success(success).error(error || function(err){console.log(err);});
     };
 
     /*
@@ -79,7 +81,7 @@ angular.module('suiviProtocoleServices').service('dataServ', ['$http', '$filter'
      *  cf. this.post
      */
     this.put = function(url, data, success, error){
-        $http.put(url, data).success(success).error(error || function(err){console.log(err);});
+        $http.put(this.baseurl + url, data).success(success).error(error || function(err){console.log(err);});
     };
 
     /*
@@ -90,7 +92,7 @@ angular.module('suiviProtocoleServices').service('dataServ', ['$http', '$filter'
      *  error: la callback de traitement en cas d'erreur gérable
      */
     this.delete = function(url, success, error){
-        $http.delete(url).success(success).error(error || function(err){console.log(err);});
+        $http.delete(this.baseurl + url).success(success).error(error || function(err){console.log(err);});
     };
 
 }]);
