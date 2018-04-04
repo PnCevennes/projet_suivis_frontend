@@ -4,7 +4,7 @@
 angular.module('baseSites').controller('siteDetailController', function($scope, $rootScope, $routeParams, configServ, userServ, mapService, $timeout){
 
     $scope._appName = $routeParams.appName;
-    $scope.schemaUrl = $scope._appName + '/config/site/detail';
+    $scope.schemaUrl = 'config?app='+ $routeParams.appName + '&vue=site&vue=detail';
     $scope.dataUrl = $scope._appName + '/site/' + $routeParams.id;
     $scope.dataId = $routeParams.id;
     $scope.updateUrl = '#/' + $scope._appName + '/edit/site/' + $routeParams.id;
@@ -25,12 +25,12 @@ angular.module('baseSites').controller('siteDetailController', function($scope, 
 
     $scope.initDisplay = function(data){
       mapService.initialize($scope.schema.mapConfig).then(function(){
-          mapService.loadData($scope._appName + '/site').then(
+          mapService.loadData($scope.schema.mapData).then(
               function(){
                   mapService.selectItem($routeParams.id);
               }
               );
-          $scope.title = data.bsNom;
+          $scope.title = data.base_site_name;
       });
     }
 

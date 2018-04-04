@@ -279,6 +279,11 @@ angular.module('SimpleMap').directive('leafletMap', function(){
                                 addGeom(geom);
                             });
                         }
+                        if(resp.items){
+                            resp.items.features.forEach(function(geom){
+                                addGeom(geom);
+                            });
+                        }
                         else{
                             resp.forEach(function(geom){
                                 addGeom(geom);

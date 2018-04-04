@@ -5,7 +5,7 @@ angular.module('baseSites').controller('siteEditController', function($scope, $r
     $filter, dataServ, mapService, configServ, userMessages, $timeout){
 
     $scope._appName = $routeParams.appName;
-    $scope.configUrl = $scope._appName + '/config/site/form';
+    $scope.configUrl = 'config?app=' + $scope._appName + '&vue=site&vue=form';
 
     if($routeParams.id){
         $scope.saveUrl = $scope._appName + '/site/' + $routeParams.id;
@@ -18,7 +18,7 @@ angular.module('baseSites').controller('siteEditController', function($scope, $r
     }
 
     $scope.$on('form:init', function(ev, data){
-        if(data.bsNom){
+        if(data.base_site_name){
             $scope.title = 'Modification du site ' + data.bsNom;
         }
         else{

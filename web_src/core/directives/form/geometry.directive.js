@@ -63,7 +63,7 @@ angular.module('FormDirectives').directive('geometry', function(){
             var _initialize = function(){
                 mapService.initialize($scope.configUrl).then(function(){
                     mapService.getLayerControl().addOverlay($scope.editLayer, "Edition");
-                    mapService.loadData($scope.options.dataUrl).then(function(){
+                    mapService.loadData($scope.options.mapData).then(function(){
                         if($scope.origin){
                             $timeout(function(){
                                 var layer = mapService.selectItem($scope.origin);
