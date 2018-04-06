@@ -244,8 +244,8 @@ angular.module('SimpleMap').directive('leafletMap', function(){
                             $rootScope.$broadcast('mapService:itemClick', geom)    
                         );
                     });
-                    if(jsonData.properties.geomLabel){
-                        geom.bindPopup(jsonData.properties.geomLabel);
+                    if(jsonData.properties.geom_popup){
+                        geom.bindPopup(jsonData.properties.geom_popup);
                     }
                     try{
                         geom.setZIndexOffset(0);
