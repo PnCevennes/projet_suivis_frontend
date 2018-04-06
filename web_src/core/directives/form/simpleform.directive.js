@@ -17,7 +17,7 @@ angular.module('FormDirectives').directive('simpleform', function(){
         },
         transclude: true,
         templateUrl: 'js/templates/simpleForm.htm',
-        controller: ['$scope', '$rootScope', 'configServ', 'dataServ', 'userServ', 'userMessages', '$loading', '$q', 'SpreadSheet', '$modal', '$location', '$timeout', function($scope, $rootScope, configServ, dataServ, userServ, userMessages, $loading, $q, SpreadSheet, $modal, $location, $timeout){
+        controller: ['$scope', '$rootScope', 'configServ', 'dataServ', 'userServ', 'userMessages', '$loading', '$q', 'SpreadSheet', '$uibModal', '$location', '$timeout', function($scope, $rootScope, configServ, dataServ, userServ, userMessages, $loading, $q, SpreadSheet, $uibModal, $location, $timeout){
             var dirty = true;
             var editAccess = false;
             $scope.errors = {};
@@ -39,16 +39,16 @@ angular.module('FormDirectives').directive('simpleform', function(){
             });
 
             $scope.openConfirm = function(txt){
-                var modInstance = $modal.open({
+                var modInstance = $uibModal.open({
                     templateUrl: 'js/templates/modalConfirm.htm',
                     resolve: {txt: function(){return txt}},
-                    controller: function($modalInstance, $scope, txt){
+                    controller: function($uibModalInstance, $scope, txt){
                         $scope.txt = txt;
                         $scope.ok = function(){
-                            $modalInstance.close();
+                            $uibModalInstance.close();
                         };
                         $scope.cancel = function(){
-                            $modalInstance.dismiss('cancel');
+                            $uibModalInstance.dismiss('cancel');
                         }
                     }
                 });

@@ -6,7 +6,11 @@
  *  initial -> l'ID fourni
  *  reverseurl -> l'url permettant d'obtenir le label correspondant à l'ID
  */
-angular.module('FormDirectives').directive('angucompletewrapper', ['dataServ', '$http', function(dataServ, $http){
+
+//  options="{{field.options}}"
+//  option="{{field.options}} contient toutes les options relatives au requetage : url, reverse_url, ...
+angular.module('FormDirectives').directive('angucompletewrapper', ['dataServ', '$q', 
+    function(dataServ, $q){
     return {
         restrict: 'E',
         scope: {
@@ -14,15 +18,16 @@ angular.module('FormDirectives').directive('angucompletewrapper', ['dataServ', '
             decorated: '@',
             selectedobject: '=',
             ngBlur: '=',
-            url: '@',
+            options: '=',
             initial: '=',
-            reverseurl: '@',
             ngrequired: '=',
         },
         transclude: true,
         templateUrl: 'js/templates/form/autoComplete.htm',
         link: function($scope, elem){
+            
             $scope.localselectedobject = '';
+
             $scope.testIsNull = function(){
                 if($('#aw')[0].value == ''){
                     $scope.selectedobject = null;
@@ -30,11 +35,25 @@ angular.module('FormDirectives').directive('angucompletewrapper', ['dataServ', '
             };
 
             $scope.find = function(txt){
+                dfd = $q.defer();
                 if(txt){
-                    return $http.get($scope.url + txt).then(function(resp){
-                        return resp.data;
+                    if ($scope.options.searchField) {
+                        search_url = '?' + $scope.options.searchField + '=' + txt
+                    }
+                    else {
+                        search_url = '/' + txt
+                    }
+                    
+                    dataServ.get($scope.options.url + search_url, function(resp){
+                        results = $scope.mapResponse(resp);
+                        dfd.resolve(results);
                     });
+                    
                 }
+                else {
+                    dfd.resolve();
+                }
+                return dfd.promise;
             };
 
             $scope.$watch('localselectedobject', function(newval){
@@ -46,14 +65,26 @@ angular.module('FormDirectives').directive('angucompletewrapper', ['dataServ', '
 
             $scope.$watch('initial', function(newval){
                 if(newval){
-                    dataServ.get($scope.reverseurl + '/' + newval, function(resp){
-                        $scope.localselectedobject = resp;
+                    dataServ.get($scope.options.reverseurl + '/' + newval, function(resp){
+                        results = $scope.mapResponse([resp]);
+                        $scope.localselectedobject = results[0];
                     });
                 }
                 else{
                     $scope.localselectedobject = null;
                 }
             });
+
+            $scope.mapResponse = function (resp) {
+                results = [];
+                resp.forEach(function(r) {
+                    results.push({
+                        "id" : r[$scope.options.idField],
+                        "label" : $scope.options.displayField.map(function(a) {return r[a]}).join(' ')
+                    })
+                })
+                return results;
+            }
         }
     };
 }]);

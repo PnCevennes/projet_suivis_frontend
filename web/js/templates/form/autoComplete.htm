@@ -2,10 +2,20 @@
     <span ng-if="decorated" class="input-group-addon">
         <span class="glyphicon glyphicon-search"></span>
     </span>
-    <input id="aw" ng-blur="ngBlur" type="text" class="{{inputclass}}" ng-model="localselectedobject"
-      typeahead="item as item.label for item in find($viewValue || null)"
-      typeahead-loading="items" typeahead-editable="false"
-      typeahead-min-length="3" ng-required="{{ngrequired}}" ng-change="testIsNull()" autocomplete="off"></input>
+    <pre>{{localselectedobject|json}}</pre>
+    <pre>{{selectedobject|json}}</pre>
+    <input 
+        type="text" 
+        ng-model="localselectedobject"
+        placeholder="Saisir les trois premières lettres" 
+        uib-typeahead="val as val.label for val in find($viewValue)" 
+        typeahead-editable="false"
+        typeahead-min-length="3"
+        ng-required="{{ngrequired}}"
+        autocomplete="off"
+        class="form-control"
+    >
+
     <span ng-if="decorated" class="input-group-btn">
         <ng-transclude></ng-transclude>
     </span>

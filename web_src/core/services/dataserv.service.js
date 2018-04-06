@@ -72,7 +72,12 @@ angular.module('suiviProtocoleServices').service('dataServ',
      *  error: la callback de traitement en cas d'erreur gérable
      */
     this.post = function(url, data, success, error){
-        $http.post(this.baseurl + url, data).success(success).error(error || function(err){console.log(err);});
+        $http.post(
+            this.baseurl + url, data
+        ).then(
+            success,
+            error || function(err){console.log(err);}
+        );
     };
 
     /*
@@ -81,7 +86,10 @@ angular.module('suiviProtocoleServices').service('dataServ',
      *  cf. this.post
      */
     this.put = function(url, data, success, error){
-        $http.put(this.baseurl + url, data).success(success).error(error || function(err){console.log(err);});
+        $http.put(this.baseurl + url, data).then(
+            success,
+            error || function(err){console.log(err);}
+        );
     };
 
     /*
@@ -92,7 +100,10 @@ angular.module('suiviProtocoleServices').service('dataServ',
      *  error: la callback de traitement en cas d'erreur gérable
      */
     this.delete = function(url, success, error){
-        $http.delete(this.baseurl + url).success(success).error(error || function(err){console.log(err);});
+        $http.delete(this.baseurl + url).then(
+            success,
+            error || function(err){console.log(err);}
+        );
     };
 
 }]);

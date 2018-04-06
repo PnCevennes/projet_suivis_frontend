@@ -61,7 +61,7 @@ angular.module('suiviProtocoleServices').service(
     };
 
     this.connected = angular.bind(this, function(resp){
-        _user = resp;
+        _user = resp.data;
         _user.pass = _tmp_password;
         this.setUser()
         $rootScope.$broadcast('user:login', _user);

@@ -17,6 +17,7 @@ angular.module('FormDirectives').directive('geometry', function(){
         controller: ['$scope', '$rootScope', '$timeout', 'mapService', function($scope, $rootScope, $timeout, mapService){
             $scope.editLayer = new L.FeatureGroup();
 
+            $scope.geom = $scope.geom || [];
             var current = null;
 
             var setEditLayer = function(layer){
@@ -28,27 +29,11 @@ angular.module('FormDirectives').directive('geometry', function(){
 
             var coordsDisplay = null;
 
-            $scope.update_point = function(pt_index, pt_coord){
-                return function(value){
-                    if(arguments.length){
-                        var _eqs = ['lng', 'lat'];
-                        $scope.geom[pt_index][pt_coord] = value;
-                        var _geom = $scope.editLayer.getLayers()[0];
-                        try{
-                            var _coords = _geom.getLatLngs();
-                            _coords[pt_index][_eqs[pt_coord]] = value;
-                            _geom.setLatLngs(_coords);
-                            _geom.redraw();
-                        }
-                        catch(e){
-                            var _coords = _geom.getLatLng();
-                            _coords[_eqs[pt_coord]] = value;
-                            _geom.setLatLng(_coords);
-                            _geom.update();
-                        }
-                    }
-                    return $scope.geom[pt_index][pt_coord];
-                };
+            $scope.update_point = function(){
+                var _geom = $scope.editLayer.getLayers()[0];
+                _geom.setLatLng($scope.new_coo);
+                _geom.update();  
+                mapService.getMap().setView($scope.new_coo);
             };
 
 
@@ -151,8 +136,6 @@ angular.module('FormDirectives').directive('geometry', function(){
             // initialisation de la carte
             $timeout(initialize, 0);
 
-            $scope.geom = $scope.geom || [];
-
             $scope.updateCoords = function(layer){
                 $scope.geom.splice(0);
                 if(layer){
@@ -164,6 +147,7 @@ angular.module('FormDirectives').directive('geometry', function(){
                     catch(e){
                         point = layer.getLatLng();
                         $scope.geom.push([point.lng, point.lat]);
+                        $scope.new_coo = [point.lat, point.lng];
                     }
                 }
             };

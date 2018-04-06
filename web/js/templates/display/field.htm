@@ -4,7 +4,7 @@
 <div ng-if="field.type=='select'">{{field.options.choices|tselect:data}}</div>
 <div ng-if="field.type=='multisel'">{{field.options.choices|tmultisel:data}}</div>
 <div ng-if="field.type=='bool'">{{data? 'Oui' : 'Non'}}</div>
-<div xhrdisplay ng-if="field.type=='xhr'" inputid="data" xhrurl="field.options.url"></div>
+<div xhrdisplay ng-if="field.type=='xhr'" inputid="data" xhroptions="field.options"></div>
 <ul ng-if="field.type=='multi'" class="list-unstyled">
     <li ng-repeat="item in data">{{item}}</li>
 </ul>
@@ -28,7 +28,7 @@
             <div ng-if="subf.type=='select'">{{subf.options.choices|tselect:item[subf.name]}}</div>
             <div ng-if="subf.type=='multisel'">{{subf.options.choices|tmultisel:item[subf.name]}}</div>
             <div ng-if="subf.type=='bool'">{{item[subf.name]? 'Oui' : 'Non'}}</div>
-            <div xhrdisplay ng-if="subf.type=='xhr'" inputid="data" xhrurl="subf.options.url"></div>
+            <div xhrdisplay ng-if="subf.type=='xhr'" inputid="data" xhroptions="subf.options"></div>
             <ul ng-if="subf.type=='multi'" class="list-unstyled">
                 <li ng-repeat="sitem in item[subf.name]">{{sitem}}</li>
             </ul>

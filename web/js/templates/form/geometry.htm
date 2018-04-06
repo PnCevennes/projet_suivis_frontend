@@ -1,22 +1,24 @@
 <div class="float-none">
-	<div class="map medium" leaflet-map config-url="js/resources/defaults.json"></div>
+    <div class="map medium" leaflet-map config-url="js/resources/defaults.json"></div>
+    
     <div style="clear: both;">
-        <table class="table">
-            <tr>
+        <!-- Ne d'affiche que si la géométrie est de type point -->
+        <table class="table"  ng-if="new_coo">
+             <tr>
                 <th>Long.</th>
                 <th>Lat.</th>
             </tr>
-            <tr ng-repeat="point in geom">
-                <td><pre>{{geom|json}}</pre></td>                
+            <tr>   
                 <td>
-                    <input type="number" step="0.00001" ng-model="update_point($index, 0)" ng-model-options="{ getterSetter: true }"></input>
+                    <input type="number" class="form-control" placeholder="Longitude" ng-model="new_coo[1]"></input>
+                </td>      
+                <td>
+                    <input type="number" class="form-control" placeholder="Latitude" ng-model="new_coo[0]"></input>
                 </td>
                 <td>
-                    <input type="number" step="0.00001" ng-model="update_point($index, 1)" ng-model-options="{ getterSetter: true }"></input>
+                    <button class="btn btn-success" ng-click="update_point()">Changer coordonnées</button>
                 </td>
             </tr>
         </table>
     <div>
-</div>
-<input type="hidden" ng-model="geom[0][0]" ng-required="true"></input>
-<input type="hidden" ng-model="geom[0][1]" ng-required="true"></input>
+</div>  

@@ -1,12 +1,12 @@
 <ng-transclude></ng-transclude>
 <form name="Simpleform" novalidate class="css-form">
     <div id="form-container" class="container-fluid">
-        <tabset justified="true" ng-if="schema.groups.length>1 || schema.groups.length && addSubSchema">
-            <tab ng-repeat="group in schema.groups" active="isActive[$index]">
+        <uib-tabset justified="true" ng-if="schema.groups.length>1 || schema.groups.length && addSubSchema">
+            <uib-tab ng-repeat="group in schema.groups" active="isActive[$index]">
 
-                <tab-heading>
-                <span ng-show="(sub_{{$index}}.$invalid)" class="glyphicon glyphicon-alert"></span> {{group.name}}
-                </tab-heading>
+                <uib-tab-heading>
+                    <span ng-show="(sub_{{$index}}.$invalid)" class="glyphicon glyphicon-alert"></span> {{group.name}}
+                </uib-tab-heading>
                 <ng-form name="sub_{{$index}}">
                     <dynform group="group" data="data" errors="errors"></dynform>
                 </ng-form>
@@ -18,8 +18,8 @@
                         <button class="btn btn-success" type="button" ng-disabled="!isFormValid()" ng-click="save()"><span class="glyphicon glyphicon-ok-sign"></span> Enregistrer</button>
                     </div>
                 </div> 
-            </tab>
-            <tab ng-if="addSubSchema" heading="{{schema.subTitle}}" disabled="!isFormValid()" active="isActive[isActive.length-1]">
+            </uib-tab>
+            <uib-tab ng-if="addSubSchema" heading="{{schema.subTitle}}" disabled="!isFormValid()" active="isActive[isActive.length-1]">
                 <div spreadsheet schemaurl="schema.subSchemaUrl" dataref="schema.subDataRef" data="data" subtitle="schema.subTitle"></div>
                 <div id="formToolbox" class="row">
                     <div id ="btn-action" class=" btn-toolbox float-right">
@@ -28,8 +28,8 @@
                         <button class="btn btn-success" type="button" ng-disabled="!isFormValid()" ng-click="save()"><span class="glyphicon glyphicon-ok-sign"></span> Enregistrer</button>
                     </div>
                 </div>
-            </tab>
-        </tabset>
+            </uib-tab>
+        </uib-tabset>
         <div ng-if="schema.groups.length==1 && !addSubSchema">
             <dynform group="schema.groups[0]" data="data" errors="errors"></dynform>
             <div id="formToolbox" class="row">
