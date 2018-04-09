@@ -3,15 +3,15 @@
  */
 angular.module('baseObservations').controller('observationEditController', function($scope, $rootScope, $routeParams, $location, configServ, dataServ, userMessages){
     $scope._appName = $routeParams.appName;
-    $scope.configUrl = $scope._appName + '/config/observation/form';
+    $scope.configUrl = 'config?app=' + $scope._appName + '&vue=visite&vue=form';
     if($routeParams.id){
-        $scope.saveUrl = $scope._appName + '/observation/' + $routeParams.id;
-        $scope.dataUrl = $scope._appName + '/observation/' + $routeParams.id;
+        $scope.saveUrl = $scope._appName + '/visite/' + $routeParams.id;
+        $scope.dataUrl = $scope._appName + '/visite/' + $routeParams.id;
         $scope.data = {};
     }
     else{
-        $scope.saveUrl = $scope._appName + '/observation';
-        $scope.data = {fkBsId: $routeParams.site_id};
+        $scope.saveUrl = $scope._appName + '/visite';
+        $scope.data = {id_base_site: $routeParams.site_id};
     }
 
     var frDate = function(dte){

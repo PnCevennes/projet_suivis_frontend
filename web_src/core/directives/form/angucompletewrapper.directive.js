@@ -37,18 +37,22 @@ angular.module('FormDirectives').directive('angucompletewrapper', ['dataServ', '
             $scope.find = function(txt){
                 dfd = $q.defer();
                 if(txt){
+                    url = $scope.options.url.split("?")[0]
+                    extraParam = "";
+                    if ($scope.options.url.split("?")[1]){
+                        extraParam = $scope.options.url.split("?")[1]+"&"
+                    }
                     if ($scope.options.searchField) {
-                        search_url = '?' + $scope.options.searchField + '=' + txt
+                        search_url = '?' + extraParam + $scope.options.searchField + '=' + txt
                     }
                     else {
                         search_url = '/' + txt
                     }
                     
-                    dataServ.get($scope.options.url + search_url, function(resp){
+                    dataServ.get(url + search_url, function(resp){
                         results = $scope.mapResponse(resp);
                         dfd.resolve(results);
                     });
-                    
                 }
                 else {
                     dfd.resolve();

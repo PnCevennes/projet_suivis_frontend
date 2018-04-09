@@ -14,7 +14,12 @@
         </div>
     </div>
     <div ng-if="schema.type=='xhr'">
-        <angucompletewrapper id="{{schema.name}}{{$index}}" name="{{schema.name}}{{$index}}" decorated="true" inputclass="form-control" selectedobject="data[$index]" url="{{schema.options.url}}/" reverseurl="{{schema.options.reverseurl}}" titlefield="label" initial="data[$index]">
+        <angucompletewrapper id="{{schema.name}}{{$index}}" 
+            name="{{schema.name}}{{$index}}" decorated="true" 
+            inputclass="form-control" selectedobject="data[$index]" 
+            options="schema.options" 
+            titlefield="label" initial="data[$index]"
+        >
             <button ng-if="$index==(data.length-1)" class="btn btn-success" type="button" ng-click="add()" ng-disabled="addDisabled"><span class="glyphicon glyphicon-plus"></span></button>
             <button class="btn btn-danger" tabindex="-1" ng-if="data.length>1" ng-click="remove($index)"><span class="glyphicon glyphicon-remove"></span></button>
         </angucompletewrapper>
