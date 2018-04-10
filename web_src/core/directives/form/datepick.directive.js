@@ -15,31 +15,22 @@ angular.module('FormDirectives').directive('datepick', function(){
         templateUrl: 'js/templates/form/datepick.htm',
         controller: ['$scope', function($scope){
             $scope.opened = false;
+            console.log($scope.date);
             $scope.toggle = function($event){
                 $event.preventDefault();
                 $event.stopPropagation();
                 $scope.opened = !$scope.opened;
             };
 
-            if($scope.date && $scope.date.getDate){
-                $scope.date = ('00'+$scope.date.getDate()).slice(-2) + '/' + ('00' + ($scope.date.getMonth()+1)).slice(-2) + '/' + $scope.date.getFullYear();
+            if($scope.date){
+                try {
+                    $scope.date_display = new Date($scope.date);
+                  } catch (e) {
+                    
+                }
             }
-
-            $scope.$watch('date', function(newval){
-                try{
-                    newval.setHours(12);
-                    $scope.date = newval;
-                }
-                catch(e){
-                    if(newval){
-                        try{
-                            $scope.date = newval;
-                        }
-                        catch(e){
-                            //$scope.date = $scope.date.replace(/(\d+)-(\d+)-(\d+)/, '$3/$2/$1');
-                        }
-                    }
-                }
+            $scope.$watch('date_display', function(newval){
+                $scope.date = newval.toISOString();
             });
         }]
     }
