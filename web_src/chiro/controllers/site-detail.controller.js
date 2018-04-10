@@ -7,7 +7,7 @@ angular.module('baseSites').controller('siteDetailController', function($scope, 
     $scope.schemaUrl = 'config?app='+ $routeParams.appName + '&vue=site&vue=detail';
     $scope.dataUrl = $scope._appName + '/site/' + $routeParams.id;
     $scope.dataId = $routeParams.id;
-    $scope.updateUrl = '#/' + $scope._appName + '/edit/site/' + $routeParams.id;
+    $scope.updateUrl = '#!/' + $scope._appName + '/edit/site/' + $routeParams.id;
 
     $scope.$on('display:init', function(ev, data){
         if ($scope.schema) $scope.initDisplay(data);

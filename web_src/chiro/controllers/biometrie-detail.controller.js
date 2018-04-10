@@ -3,7 +3,7 @@ angular.module('biometrie').controller('biometrieDetailController', function($sc
     $scope._appName = $routeParams.appName;
     $scope.schemaUrl = $scope._appName + '/config/biometrie/detail';
     $scope.dataUrl = $scope._appName + '/biometrie/' + $routeParams.id;
-    $scope.updateUrl = '#/' + $scope._appName + '/edit/biometrie/' + $routeParams.id;
+    $scope.updateUrl = '#!/' + $scope._appName + '/edit/biometrie/' + $routeParams.id;
 
     $scope.dataId = $routeParams.id;
 
