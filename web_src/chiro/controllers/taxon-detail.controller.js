@@ -1,7 +1,8 @@
 angular.module('baseTaxons').controller('taxonDetailController', function($scope, $rootScope, $routeParams, configServ, dataServ){
 
     $scope._appName = $routeParams.appName;
-    $scope.schemaUrl = $scope._appName + '/config/obstaxon/detail';
+    $scope.schemaUrl = 'config?app='+ $routeParams.appName + '&vue=obs_taxon&vue=detail';
+    
     $scope.dataUrl = $scope._appName + '/obs_taxon/' + $routeParams.id;
     $scope.dataId = $routeParams.id;
     $scope.updateUrl = '#/' + $scope._appName + '/edit/taxons/' + $routeParams.id;

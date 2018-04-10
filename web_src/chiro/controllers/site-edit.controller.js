@@ -19,7 +19,7 @@ angular.module('baseSites').controller('siteEditController', function($scope, $r
 
     $scope.$on('form:init', function(ev, data){
         if(data.base_site_name){
-            $scope.title = 'Modification du site ' + data.bsNom;
+            $scope.title = 'Modification du site ' + data.base_site_name;
         }
         else{
             $scope.title = 'Nouveau site';
@@ -31,19 +31,19 @@ angular.module('baseSites').controller('siteEditController', function($scope, $r
     });
 
     $scope.$on('form:create', function(ev, data){
-        userMessages.successMessage = 'le site ' + data.bsNom + ' a été créé avec succès.'
+        userMessages.successMessage = 'le site ' + data.base_site_name + ' a été créé avec succès.'
         $location.url($scope._appName + '/site/' + data.id);
     });
 
     $scope.$on('form:update', function(ev, data){
 
-        userMessages.successMessage = 'le site ' + data.bsNom + ' a été mis à jour avec succès.'
+        userMessages.successMessage = 'le site ' + data.base_site_name + ' a été mis à jour avec succès.'
         $location.url($scope._appName + '/site/' + data.id);
     });
 
     $scope.$on('form:delete', function(ev, data){
 
-        userMessages.successMessage = 'le site ' + data.bsNom + ' a été supprimé.'
+        userMessages.successMessage = 'le site ' + data.base_site_name + ' a été supprimé.'
         dataServ.forceReload = true;
         $location.url($scope._appName + '/site/');
     });

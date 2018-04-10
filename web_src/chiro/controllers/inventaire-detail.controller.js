@@ -4,8 +4,7 @@
 angular.module('baseObservations').controller('inventaireDetailController', function($scope, $rootScope, $routeParams, dataServ, configServ, mapService){
     $scope._appName = $routeParams.appName;
 
-
-    $scope.schemaUrl = $scope._appName + '/config/observation/sans-site/detail';
+    $scope.schemaUrl = 'config?app='+ $routeParams.appName + '&vue=visite&vue=detail_ssite';
     $scope.dataUrl = $scope._appName + '/observation/' + $routeParams.id;
     $scope.updateUrl = '#!/' + $scope._appName + '/edit/inventaire/' + $routeParams.id;
     $scope.dataId = $routeParams.id;

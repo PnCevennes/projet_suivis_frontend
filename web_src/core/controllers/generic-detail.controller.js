@@ -20,7 +20,7 @@ angular.module('generiques').controller('genericDetailController', [ '$scope', '
                         mapService.selectItem($routeParams.id);
                     }
                     );
-                $scope.title = data.bsNom;
+                $scope.title = data.base_site_name;
             });
         }
     });

@@ -29,7 +29,7 @@ angular.module('baseSites').controller('siteDetailController', function($scope, 
               function(){
                   mapService.selectItem($routeParams.id);
               }
-              );
+            );
           $scope.title = data.base_site_name;
       });
     }
