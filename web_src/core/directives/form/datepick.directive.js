@@ -15,7 +15,6 @@ angular.module('FormDirectives').directive('datepick', function(){
         templateUrl: 'js/templates/form/datepick.htm',
         controller: ['$scope', function($scope){
             $scope.opened = false;
-            console.log($scope.date);
             $scope.toggle = function($event){
                 $event.preventDefault();
                 $event.stopPropagation();
@@ -30,7 +29,9 @@ angular.module('FormDirectives').directive('datepick', function(){
                 }
             }
             $scope.$watch('date_display', function(newval){
-                $scope.date = newval.toISOString();
+                if (newval) {
+                    $scope.date = newval.toISOString();
+                }
             });
         }]
     }
