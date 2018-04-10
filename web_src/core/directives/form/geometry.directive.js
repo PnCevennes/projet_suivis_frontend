@@ -38,7 +38,7 @@ angular.module('FormDirectives').directive('geometry', function(){
 
 
             if(!$scope.options.mapConfig){
-                $scope.configUrl = 'js/resources/defaults.json';
+                $scope.configUrl = 'static/configs/suivi_chiro/resources/defaults.json';
             }
             else{
               // $scope.configUrl = $scope.options.configUrl; A voir s'il ne faut pas mieu utiliser configUrl

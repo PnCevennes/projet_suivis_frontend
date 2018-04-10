@@ -8,7 +8,7 @@ angular.module('baseObservations').controller('observationListController', funct
     var data = [];
     $scope._appName = $routeParams.appName;
     $scope.editAccess = userServ.checkLevel(2);
-    $scope.data_url = $routeParams.appName + '/observation';
+    $scope.data_url = $routeParams.appName + '/visites';
     $scope.data = [];
 
     
@@ -25,7 +25,7 @@ angular.module('baseObservations').controller('observationListController', funct
     
     $scope.setData = function(resp, deferred){
         $scope.items = resp;
-        mapService.initialize('js/resources/chiro_obs.json').then(function(){
+        mapService.initialize('static/configs/suivi_chiro/resources/chiro_obs.json').then(function(){
             $scope.data = resp.map(function(item){
                 mapService.addGeom(item);
                 return item.properties;

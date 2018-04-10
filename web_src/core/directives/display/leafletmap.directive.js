@@ -25,7 +25,7 @@ angular.module('SimpleMap').directive('leafletMap', function(){
 
             var initialize = function(configUrl){
                 if(!configUrl){
-                    configUrl = 'js/resources/defaults.json';
+                    configUrl = 'static/configs/suivi_chiro/resources/defaults.json';
                 }
                 if(map){
                     $timeout(function() {

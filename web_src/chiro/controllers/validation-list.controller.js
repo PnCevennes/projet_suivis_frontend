@@ -53,7 +53,7 @@ angular.module('baseValidation').controller('validationListController', function
         $scope.selection.splice(0);
         checked.splice(0);
 
-        mapService.initialize('js/resources/chiro_obs.json').then(function(){
+        mapService.initialize('static/configs/suivi_chiro/resources/chiro_obs.json').then(function(){
             $scope.$on('chiro/validation:ngTable:itemChecked', function(ev, item){
                 if(item._checked){
                     if(checked.indexOf(item)==-1){
