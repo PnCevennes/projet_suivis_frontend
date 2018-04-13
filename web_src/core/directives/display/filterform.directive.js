@@ -66,19 +66,20 @@ angular.module('DisplayDirectives').directive('filterform', function(){
                 });
                 extraParam = ''
                 url = $scope.url.split("?")[0]
+                limit = $scope.schema.limit || 100
                 if ($scope.url.split("?")[1]){
                     extraParam = $scope.url.split("?")[1]+"&"
                 }
                 if(_qs.length){
-                    var _url = url + "?" + extraParam + "offset="+$scope.pageNum+"&limit="+$scope.schema.limit+"&filters=" + angular.toJson(_qs);
+                    var _url = url + "?" + extraParam + "offset="+$scope.pageNum+"&limit="+ limit +"&filters=" + angular.toJson(_qs);
                 }
                 else{
-                    var _url = url +  "?" + extraParam + "offset="+$scope.pageNum+"&limit="+$scope.schema.limit;
+                    var _url = url +  "?" + extraParam + "offset="+$scope.pageNum+"&limit="+ limit;
                 }
                 configServ.put($scope.url, 
                     {
                         page: $scope.pageNum,
-                        limit: $scope.schema.limit,
+                        limit: limit,
                         qs: _qs,
                         url: _url
                     }
@@ -96,7 +97,7 @@ angular.module('DisplayDirectives').directive('filterform', function(){
                     $scope.collapseFilters = false;
                     $scope.counts.total = resp.total;
                     $scope.counts.current = resp.total_filtered;
-                    $scope.maxCount = Math.min(($scope.pageNum+1) * $scope.schema.limit, $scope.counts.current);
+                    $scope.maxCount = Math.min(($scope.pageNum+1) * limit, $scope.counts.current);
                     $scope.callback(resp.items, dfd);
                 }, null, true);
             };

@@ -62,7 +62,7 @@ angular.module('DisplayDirectives').directive('detailDisplay', function(){
             $scope.setSubSchema = function(resp){
                 $scope.subSchema = angular.copy(resp);
                 if(!$scope.subSchema.filtering){
-                    $scope.subSchema.filtering = {limit: null, fields: []};
+                    $scope.subSchema.filtering = {limit: 100, fields: []};
                 }
                 // récupération des données liées au sous-schéma (sous-protocole)
                 //dataServ.get($scope.schema.subDataUrl + $scope.dataId, $scope.setSubData);

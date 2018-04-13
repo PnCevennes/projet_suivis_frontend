@@ -2,6 +2,7 @@
     <span ng-if="decorated" class="input-group-addon">
         <span class="glyphicon glyphicon-search"></span>
     </span>
+    
     <input 
         type="text" 
         ng-model="localselectedobject"
@@ -13,7 +14,7 @@
         autocomplete="off"
         class="form-control"
     >
-
+    
     <span ng-if="decorated" class="input-group-btn">
         <ng-transclude></ng-transclude>
     </span>

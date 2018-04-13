@@ -10,6 +10,7 @@ angular.module('suiviProtocoleServices').service('dataServ',
     this.forceReload = false;
     this.baseurl = RESOURCES.API_URL;
     // this.baseurl = 'http://localhost:8000/';
+
     /*
      * contacte le serveur en GET et met en cache les données renvoyées
      * Si les données sont déja en cache, retourne le données directement, à moins 
@@ -23,15 +24,17 @@ angular.module('suiviProtocoleServices').service('dataServ',
      *  error: une callback appelée en cas d'erreur gérable
      *  force: flag permettant de forcer le rechargement des données plutot que l'utilisation
      *         du cache
+     *  baseurl : permet de spécifier l'url du serveur de l'API
      */
-    this.get = function(url, success, error, force){
+    this.get = function(url, success, error, force, baseurl=RESOURCES.API_URL){
+        // if (!baseurl) baseurl = this.baseurl;
         // ne recharger les données du serveur que si le cache est vide ou 
         // si l'option force est true
         if(!error){
             error = function(err){console.log(err)};
         }
         if(cache[url] == undefined || force || this.forceReload){
-            $http.get(this.baseurl + url)
+            $http.get(baseurl + url)
                 .then(function(data){
                     this.forceReload = false;
                     cache[url] = data.data;

@@ -11,6 +11,7 @@
             <input id="{{field.name}}" type="checkbox" ng-if="field.type=='bool' && !field.options.multi" ng-model="data[field.name]" ng-disabled="field.options.readOnly">
             <select id="{{field.name}}" class="form-control" ng-options="item.id as item.libelle for item in field.options.choices" ng-model="data[field.name]" ng-if="field.type=='select' && !field.options.multi" ng-disabled="field.options.readOnly"></select>
             <angucompletewrapper inputclass="form-control" id="{{field.name}}" name="{{field.name}}" decorated="true" selectedobject="data[field.name]" url="{{field.options.url}}/" reverseurl="{{field.options.reverseurl}}" titlefield="label" ng-if="field.type=='xhr' && !field.options.multi" initial="data[field.name]" ngrequired="field.options.required" ngdisabled="field.options.readOnly"></angucompletewrapper>
+            <taxhubangucomplete inputclass="form-control" id="{{field.name}}" name="{{field.name}}" decorated="true" selectedobject="data[field.name]" url="{{field.options.url}}/" reverseurl="{{field.options.reverseurl}}" titlefield="label" ng-if="field.type=='taxhub' && !field.options.multi" initial="data[field.name]" ngrequired="field.options.required" ngdisabled="field.options.readOnly"></taxhubangucomplete>
             <textarea class="form-control" id="{{field.name}}" ng-if="field.type=='text' && !field.options.multi" ng-model="data[field.name]" ng-disabled="field.options.readOnly"></textarea>
             <calculated ngclass="form-control" id="{{field.name}}" ng-if="field.type=='sum' && !field.options.multi" refs="field.options.ref" data="data" model="data[field.name]" modifiable="field.options.modifiable" min="field.options.min" max="field.options.max"></calculated>
             <filetype ng-if="field.type=='filetype' && !field.options.multi" fileids="data[field.name]" options="field.options"></fileinput>
@@ -19,7 +20,8 @@
             <multisel ng-if="field.type=='multisel'" schema="field" data="data[field.name]"></multisel>
         </div>
     </ng-form>
-    <button type="button" class="btn btn-sm btn-danger" ng-click="remove_item($index)" ng-show="!$last"><span class="glyphicon glyphicon-minus"></span></button>
+    <button type="button" class="btn btn-sm btn-danger" ng-click="remove_item($index)"><span class="glyphicon glyphicon-minus"></span> Supprimer élément</button>
     <button type="button" class="btn btn-sm btn-warning" ng-click="reset_item($index)" ng-show="subf_{{$index}}.$dirty"><span class="glyphicon glyphicon-erase"></span></button>
-    <button type="button" class="btn btn-sm btn-success" ng-click="add_item()" ng-disabled="is_invalid(subf_{{$index}}, $index)" ng-show="$last && subf_{{$index}}.$dirty"><span class="glyphicon glyphicon-plus"></span></button>
 </div>
+<button type="button" class="btn btn-sm btn-success" ng-click="add_item()" ><span class="glyphicon glyphicon-plus"></span> Ajouter un nouvel élément</button>
+

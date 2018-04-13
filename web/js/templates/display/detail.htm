@@ -23,10 +23,35 @@
                         </tr>
                     </table>
                 </div>
+                <div class="panel panel-default" ng-switch-when="subgroup">
+                    <div class="panel-heading">{{field.label}}</div>
+                    <table class="table">
+                        <tr>
+                            <th ng-repeat="subfield in field.fields">{{subfield.label}}</th>
+                        </tr>
+                        <tr ng-repeat="subdata in data[field.name] track by $index">
+                            <td ng-repeat="subfield in field.fields track by $index">
+                                    <div class="text-info" 
+                                        ng-if="subfield.type != 'hidden' && !subfield.options.multi" 
+                                        field-display field="subfield" 
+                                        data="subdata[subfield.name]"
+                                    ></div> 
+                            </td>
+                        </tr>
+                    </table>
+                </div>
                 <dl ng-switch-default class="dl-horizontal">
                     <dt ng-if="field.type != 'hidden'" tooltip="{{field.help}}">{{field.label}}</dt>
-                    <dd class="text-info" ng-if="field.type != 'hidden' && !field.options.multi" field-display field="field" data="data[field.name]"></dd>
-                    <dd class="text-info" ng-if="field.type != 'hidden' && field.options.multi" field-display field="field" ng-repeat="item in data[field.name] track by $index" data="item"></dd>
+                    <dd class="text-info" 
+                        ng-if="field.type != 'hidden' && !field.options.multi" 
+                        field-display field="field" 
+                        data="data[field.name]"
+                    ></dd>
+                    <dd class="text-info" 
+                        ng-if="field.type != 'hidden' && field.options.multi" 
+                        field-display field="field" 
+                        ng-repeat="item in data[field.name] track by $index" data="item"
+                    ></dd>
                 </dl>
             </div>
             <!--
@@ -67,7 +92,6 @@
 </div>
 <div ng-if="subSchema" class="sub-schema">
     <a class="btn btn-success" ng-if="subEditAccess" ng-href="#!/{{subSchema.createUrl}}{{dataId}}">{{subSchema.createBtnLabel}}</a>
-    <pre>{{subData|json}}</pre>
     <button type="button" class="btn btn-primary float-right" ng-if="subData.length==0 && subEditAccess && schema.subEditSchemaUrl" ng-click="switchEditing()">{{subSchema.createBtnLabel}} - Rapide</button>
     <div ng-if="!subEditing">
         <div tablewrapper class="table" filter-url="{{schema.subDataUrl+dataId}}" filter-callback="setSubData" schema="subSchema" data="subData" refname="{{subSchema.title}}{{dataId}}">

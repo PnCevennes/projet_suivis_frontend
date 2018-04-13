@@ -31,6 +31,7 @@
           class="form-control" ng-options="item.id as item.libelle for item in field.options.choices" ng-model="data[field.name]"
           ng-if="field.type=='select' && !field.options.multi" ng-disabled="field.options.readOnly"
         ></select>
+
         <angucompletewrapper
           inputclass="form-control" id="{{field.name}}"
           name="{{field.name}}" decorated="true" selectedobject="data[field.name]"
@@ -38,6 +39,15 @@
           ng-if="field.type=='xhr' && !field.options.multi" initial="data[field.name]"
           ngrequired="field.options.required" ngdisabled="field.options.readOnly"
         ></angucompletewrapper>
+
+
+        <taxhubangucomplete
+          inputclass="form-control" id="{{field.name}}"
+          name="{{field.name}}" decorated="true" selectedobject="data[field.name]"
+          options="field.options" titlefield="label"
+          ng-if="field.type=='taxhub' && !field.options.multi" initial="data[field.name]"
+          ngrequired="field.options.required" ngdisabled="field.options.readOnly"
+        ></taxhubangucomplete>
 
         <textarea class="form-control" id="{{field.name}}"
           ng-if="field.type=='text' && !field.options.multi" ng-model="data[field.name]" ng-disabled="field.options.readOnly"

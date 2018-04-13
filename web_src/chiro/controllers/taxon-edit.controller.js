@@ -2,15 +2,15 @@ angular.module('baseTaxons').controller('taxonEditController', function($scope, 
     $scope._appName = $routeParams.appName;
     $rootScope.$broadcast('map:hide');
     
-    $scope.configUrl = $scope._appName + '/config/obstaxon/form';
+    $scope.configUrl = "config?app=" + $scope._appName + "&vue=obs_taxon&vue=form";
     if($routeParams.id){
-        $scope.saveUrl = $scope._appName + '/obs_taxon/' + $routeParams.id;
-        $scope.dataUrl = $scope._appName + '/obs_taxon/' + $routeParams.id;
+        $scope.saveUrl = $scope._appName + '/contact_taxon/' + $routeParams.id;
+        $scope.dataUrl = $scope._appName + '/contact_taxon/' + $routeParams.id;
         $scope.data = {};
     }
     else{
-        $scope.saveUrl = $scope._appName + '/obs_taxon';
-        $scope.data = {fkBvId: $routeParams.obs_id};
+        $scope.saveUrl = $scope._appName + '/contact_taxon';
+        $scope.data = {id_base_visit: $routeParams.obs_id};
     }
 
 
@@ -28,7 +28,7 @@ angular.module('baseTaxons').controller('taxonEditController', function($scope, 
             $location.url($scope._appName + '/taxons/' + data.id);
         }
         else{
-            $location.url($scope._appName + '/observation/' + data.fkBvId);
+            $location.url($scope._appName + '/observation/' + data.id_base_visit);
         }
     });
 

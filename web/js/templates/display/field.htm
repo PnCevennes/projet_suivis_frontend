@@ -1,3 +1,4 @@
+
 <div ng-if="field.type=='string'" style="white-space: pre">{{data}}</div>
 <div ng-if="field.type=='num'">{{data}}</div>
 <div ng-if="field.type=='date'">{{data|datefr}}</div>
@@ -19,6 +20,7 @@
     </li>
 </ul>
 <div ng-if="field.type=='subform'" class="well" ng-repeat="item in data track by $index">
+        
     <dl ng-repeat="subf in field.fields track by $index" class="dl-horizontal">
         <dt>{{subf.label}}</dt>
         <dd>

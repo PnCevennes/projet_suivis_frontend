@@ -1,4 +1,5 @@
 require('./form/angucompletewrapper.directive.js');
+require('./form/taxhubangucomplete.directive.js');
 require('./form/calculated.directive.js');
 require('./form/datepick.directive.js');
 require('./form/dynform.directive.js');

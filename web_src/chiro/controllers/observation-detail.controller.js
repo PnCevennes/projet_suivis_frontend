@@ -13,8 +13,8 @@ angular.module('baseObservations').controller('observationDetailController', fun
         $scope.title = "Visite du " + data.visit_date.replace(/(\d+)-(\d+)-(\d+)/, '$3/$2/$1');
 
         mapService.initialize('static/configs/suivi_chiro/resources/chiro_obs.json').then(function(){
-            mapService.loadData($scope._appName + '/site').then(function(){
-                mapService.selectItem(data.fkBsId);
+            mapService.loadData('genericview/monitoring_chiro/v_sites_chiro?geometry_field=geom').then(function(){
+                mapService.selectItem(data.id_base_site);
             });
         });
 

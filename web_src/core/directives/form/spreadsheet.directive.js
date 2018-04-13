@@ -39,11 +39,13 @@ angular.module('FormDirectives').directive('spreadsheet', function(){
                 $scope.addLines();
             };
 
+            $scope.remove_line = function(index) {
+                lines.pop(index);
+            };
+
             $scope.addLines = function(){
-                for(i=0; i<3; i++){
-                    line = angular.copy(defaultLine);
-                    lines.push(line);
-                }
+                line = angular.copy(defaultLine);
+                lines.push(line);
             };
 
             $scope.tableParams = new ngTableParams({},
