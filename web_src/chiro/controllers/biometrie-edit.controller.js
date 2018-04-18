@@ -1,7 +1,7 @@
 angular.module('biometrie').controller('biometrieEditController', function($scope, $rootScope, $routeParams, $location, configServ, dataServ, userMessages){
     $scope._appName = $routeParams.appName;
     $rootScope.$broadcast('map:hide');
-    $scope.configUrl = $scope._appName + '/config/biometrie/form';
+    $scope.configUrl = 'config?app='+ $routeParams.appName + '&vue=biometrie&vue=form'; 
     if($routeParams.id){
         $scope.saveUrl = $scope._appName + '/biometrie/' + $routeParams.id;
         $scope.dataUrl = $scope._appName + '/biometrie/' + $routeParams.id;
