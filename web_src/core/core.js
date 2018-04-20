@@ -12,7 +12,7 @@ angular.module('generiques', ['suiviProtocoleServices', 'SimpleMap', 'ngRoute', 
 angular.module('suiviProtocoleServices', ['SimpleMap']);
 
 // directives formulaires
-angular.module('FormDirectives', ['angularFileUpload', 'SimpleMap']);
+angular.module('FormDirectives', ['ngFileUpload', 'SimpleMap']);
 
 // directives affichage
 angular.module('DisplayDirectives', ['SimpleMap']);

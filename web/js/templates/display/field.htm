@@ -14,11 +14,7 @@
         <div ng-include="'js/templates/display/filetype-include.htm'">
     </li>
 </ul>
-<ul ng-if="field.type=='filetype'" class="list-unstyled">
-    <li ng-repeat="item in data track by $index">
-        <a ng-href="{{field.options.target||'uploads/'}}{{item.fname}}" target="blank">{{item.fname.slice(item.fname.indexOf('_')+1)}}</a>
-    </li>
-</ul>
+
 <div ng-if="field.type=='subform'" class="well" ng-repeat="item in data track by $index">
         
     <dl ng-repeat="subf in field.fields track by $index" class="dl-horizontal">

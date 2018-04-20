@@ -58,9 +58,10 @@
           data="data" model="data[field.name]" modifiable="field.options.modifiable" min="field.options.min" max="field.options.max"
         ></calculated>
 
-        <fileinput ng-if="field.type=='file' && !field.options.multi" refer="data[field.name]" options="field.options"></fileinput>
-        
-        <filetype ng-if="field.type=='filetype' && !field.options.multi" fileids="data[field.name]" options="field.options"></filetype>
+        <fileinput ng-if="field.type=='file' && !field.options.multi" 
+          refer="data[field.name]" options="field.options" 
+          attacheduuid="data[field.options.attachedUUID]"
+        ></fileinput>
         
         <div geometry
           ng-if="field.type=='geom' && !field.options.multi" origin="data['__origin__'][field.name]"

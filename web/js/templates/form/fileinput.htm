@@ -1,15 +1,50 @@
 <div class="well" ng-repeat="data in refer">
+    {{data|json}}
     <ng-form name="file_{{$index}}">
-        <h4><label for="titre">Titre</label></h4>
-        <input class="form-control" type="text" id="titre" ng-model="data.titre"></input>
+        <h4><label for="media_type">Type de fichier</label></h4>
+
+        <select class="form-control" name="media_type" id="media_type" 
+            ng-model="data.id_nomenclature_media_type"
+            ng-options="item.id_nomenclature as item.label_default for item in media_type"
+        ></select>
+        
+        <h4><label for="titre">Titre</label></h4>        
+        <input class="form-control" type="text" id="titre" ng-model="data.title_fr" ng-required="true"></input>
+        
         <h4><label for="fichier">Fichier</label></h4>
-        <fileup fileid="data.id" filepath="data.path" options="options"></fileup>
+        <!-- <fileup fileid="data.id" filepath="data.path" options="options" attacheduuid="attacheduuid"></fileup> -->
+        <div>
+            <span>{{data.file_name}}</span>
+            <span ng-if="!data.file_name">{{data.media_path}}</span>
+            <button ngf-select="file_selected($index)"
+                ng-model="data.upload_file" 
+                class="btn btn-success" ng-hide="lock || !!filepath"
+            >
+                Sélectionner un fichier
+            </button>
+        </div>
         <h4><label for="url">Url</label></h4>
-        <input class="form-control" type="text" id="url" ng-model="data.url"></input>
+        <input class="form-control" type="text" id="url" ng-model="data.media_url"></input>
+
         <h4><label for="description">Description</label></h4>
-        <textarea class="form-control" id="description" ng-model="data.description"></textarea>
-        <button type="button" class="btn btn-sm btn-danger" ng-click="remove_item($index)"><span class="glyphicon glyphicon-minus"></span></button>
-        <button type="button" class="btn btn-sm btn-warning" ng-click="reset_item($index)" ng-show="file_{{$index}}.$dirty"><span class="glyphicon glyphicon-erase"></span></button>
-        <button type="button" class="btn btn-sm btn-success" ng-click="add_item()" ng-disabled="is_invalid(file_{{$index}}, $index)" ng-show="$last"><span class="glyphicon glyphicon-plus"></span></button>
+        <textarea class="form-control" id="description" ng-model="data.description_fr"></textarea>
+        
+        <h4><label for="description">Auteur</label></h4>
+        <textarea class="form-control" id="description" ng-model="data.author"></textarea>
+        
+        <div class="form-group">
+            <button class="btn btn-primary btn-sm" 
+                ng-click="action_upload($index)" 
+                ng-disabled="is_invalid(file_{{$index}}, $index)"
+            >
+            {{data.id_media ? 'Mise à jour' : 'Sauvegarder'}}
+            </button>
+            <uib-progressbar type="success" value="progress" ng-if="">{{progress}}%</uib-progressbar>
+            <button type="button" class="btn btn-sm btn-danger" ng-click="delete_media($index)"><span class="glyphicon glyphicon-minus"></span> Supprimer</button>
+            <button type="button" class="btn btn-sm btn-warning" ng-click="reset_item($index)" ng-show="file_{{$index}}.$dirty"><span class="glyphicon glyphicon-erase"></span> Annuler</button>
+        </div>
     </ng-form>
+</div>
+<div class="form-group">
+    <button type="button" class="btn btn-sm btn-success" ng-click="add_item()"><span class="glyphicon glyphicon-plus"></span> Nouveau média</button>
 </div>
