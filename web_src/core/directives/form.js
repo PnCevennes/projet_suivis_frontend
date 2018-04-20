@@ -12,4 +12,3 @@ require('./form/spreadsheet.directive.js');
 require('./form/subeditform.directive.js');
 require('./form/subform.directive.js');
 require('./form/table-fieldset.directive.js');
-require('./form/fileup.directive.js');
