@@ -18,7 +18,8 @@ angular.module('FormDirectives').directive('fileinput', function(){
             $scope.progress = undefined;
 
             var default_object = {
-                "id_table_location": $scope.options.id_table_location
+                "id_table_location": $scope.options.id_table_location,
+                "uuid_attached_row": $scope.attacheduuid
             };
 
 
@@ -33,7 +34,6 @@ angular.module('FormDirectives').directive('fileinput', function(){
             dataServ.get(
                 $scope.options.url_nomenclature_media_type,
                 function (resp) {
-                    console.log(resp.values);
                     $scope.media_type = resp.values;
                 }
             )
@@ -92,7 +92,7 @@ angular.module('FormDirectives').directive('fileinput', function(){
                         ($scope.refer[idx].media_url && $scope.refer[idx].media_url.length>0) ^ 
                         ($scope.refer[idx].file_name && $scope.refer[idx].file_name.length>0)
                     ){
-                        var valid = !!($scope.refer[idx].title_fr && $scope.refer[idx].title_fr.length >= 5);
+                        var valid = !!($scope.refer[idx].title_fr && $scope.refer[idx].title_fr.length > 0);
                         return valid;
                     }
                 }
@@ -119,22 +119,20 @@ angular.module('FormDirectives').directive('fileinput', function(){
                 
                 url = 'gn_commons/media' + ($scope.refer[idx].id_media ? '/' + $scope.refer[idx].id_media : '')
 
-                data = {
-                    "isFile": true,
-                    "id_nomenclature_media_type": $scope.refer[idx].id_nomenclature_media_type, 
-                    "id_table_location": $scope.options.id_table_location,
-                    "title_fr": $scope.refer[idx].title_fr, 
-                    "description_fr": $scope.refer[idx].description_fr, 
-                    "author": $scope.refer[idx].author, 
-                    "media_url": $scope.refer[idx].media_url, 
-                    "file": $scope.refer[idx].upload_file
-                }
+                data = angular.copy($scope.refer[idx]);
+                delete data['upload_file'];
+                delete data['file_name'];
 
-                if ($scope.attacheduuid) {
-                    data['uuid_attached_row'] = $scope.attacheduuid
+                if (! $scope.attacheduuid) {
+                    delete data['uuid_attached_row'];
                 }
 
                 if ($scope.refer[idx].upload_file) {
+                    
+                    data["file"] = $scope.refer[idx].upload_file;
+                    data["isFile"] = true;
+                    
+                    // Test type de fichier
                     if ($scope.options.accepted) {
                         $scope.options.accepted.map(function(item) { return item.toLowerCase();});
                         var ext = $scope.refer[idx].upload_file.name.slice(
@@ -145,7 +143,8 @@ angular.module('FormDirectives').directive('fileinput', function(){
                             return;
                         }
                     }
-                    
+
+                    // Test taille du fichier
                     if($scope.refer[idx].upload_file.size > maxSize){
                         userMessages.errorMessage = "La taille du fichier doit être inférieure à " + (maxSize/1024) + " Ko";
                         return;
@@ -158,9 +157,10 @@ angular.module('FormDirectives').directive('fileinput', function(){
                         $scope.progress = undefined;
                         $scope.refer[idx] = resp.data;
                         $scope.items = angular.copy($scope.refer);
+                        userMessages.successMessage = "Média enregistré avec success";
                     }, function (resp) {
                         $scope.progress = undefined;
-                        console.log('Error status: ' + resp.status);
+                        userMessages.errorMessage = "Erreur d'enregistrement";
                     }, function (evt) {
                         $scope.progress = parseInt(100.0 * evt.loaded / evt.total);
                     });
@@ -172,6 +172,10 @@ angular.module('FormDirectives').directive('fileinput', function(){
                         function(resp) {
                             $scope.refer[idx] = resp.data;
                             $scope.items = angular.copy($scope.refer);
+                            userMessages.successMessage = "Média enregistré avec success";
+                        },function(resp) {
+                            $scope.refer[idx] = resp.data;
+                            userMessages.errorMessage = "Erreur d'enregistrement";
                         }
                     )
                 }
