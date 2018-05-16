@@ -29,7 +29,7 @@ angular.module('FormDirectives').directive('fileinput', function(){
 
             // Récupération des données types de média
             if ($scope.options.url_nomenclature_media_type == undefined) {
-                $scope.options.url_nomenclature_media_type = "nomenclatures/nomenclature/117";
+                $scope.options.url_nomenclature_media_type = "nomenclatures/nomenclature/117"; 
             }
             dataServ.get(
                 $scope.options.url_nomenclature_media_type,
@@ -56,9 +56,6 @@ angular.module('FormDirectives').directive('fileinput', function(){
 
             $scope.remove_item = function(idx){
                 $scope.refer.splice(idx, 1);
-                if(!$scope.refer.length){
-                    $scope.refer.push(angular.copy(default_object));
-                }
             };
 
             $scope.delete_media = function(idx){
