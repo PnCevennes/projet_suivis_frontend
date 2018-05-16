@@ -45,7 +45,7 @@
                 <div usermsg></div>
                     <div class="navbar navbar-fixed-top" id="main-menu">
                         <div class="navbar-brand">
-                            <a href="#!/apps"><img alt="Brand" style="height: 100%;" src="img/Spirale_orange.png"><span>{{app.name}}</span></a>
+                            <a href="#/apps"><img alt="Brand" style="height: 100%;" src="img/Spirale_orange.png"><span>{{app.name}}</span></a>
                             <!--<a ng-repeat="item in data" class="navbar-brand" ng-href="#/{{item.name}}/site">{{item.name}}</a>-->
                         </div>                  
                         <div class="collapse navbar-collapse">
@@ -62,11 +62,11 @@
                                 <li ng-if="user">
                                     <a class="dropdown-toggle" data-toggle="dropdown">{{user.user.identifiant}}</a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="#!/apps">Changer d'application</a></li>
-                                        <li><a href="#!/logout">Se déconnecter</a></li>
+                                        <li><a href="#/apps">Changer d'application</a></li>
+                                        <li><a href="#/logout">Se déconnecter</a></li>
                                     </ul>
                                 </li>
-                                <li ng-if="!user"><a href="#!/login">Non connecté</a></li>
+                                <li ng-if="!user"><a href="#/login">Non connecté</a></li>
                             </ul>
                         </div>
                     </div>   

@@ -6,7 +6,7 @@ angular.module('baseObservations').controller('observationDetailController', fun
 
     $scope.schemaUrl = 'config?app='+ $routeParams.appName + '&vue=visite&vue=detail';
     $scope.dataUrl = $scope._appName + '/visite/' + $routeParams.id;
-    $scope.updateUrl = '#!/' + $scope._appName + '/edit/observation/' + $routeParams.id;
+    $scope.updateUrl = '#/' + $scope._appName + '/edit/observation/' + $routeParams.id;
     $scope.dataId = $routeParams.id;
 
     $scope.$on('display:init', function(ev, data){

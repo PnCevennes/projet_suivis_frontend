@@ -8,7 +8,7 @@
             <filterform url="{{data_url}}" schema="schema.filtering" callback="setData" paginate="true"></filterform>
             <div tablewrapper class="table" schema="schema" data="data" refname="{{_appName}}/observation">
                 <h1>Inventaires</h1>
-                <a class="btn btn-success float-left" style="margin-right: 1ex;" ng-if="editAccess" ng-href="#!/{{schema.createUrl}}">{{schema.createBtnLabel}}</a>
+                <a class="btn btn-success float-left" style="margin-right: 1ex;" ng-if="editAccess" ng-href="#/{{schema.createUrl}}">{{schema.createBtnLabel}}</a>
             </div>
         </div>
     </div>

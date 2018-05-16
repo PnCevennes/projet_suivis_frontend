@@ -236,7 +236,7 @@ angular.module('FormDirectives').directive('simpleform', function(){
             $scope.updated = function(dfd){
                 return function(resp){
                     dataServ.forceReload = true;
-                    $scope.data.id = resp.id;
+                    $scope.data.id = resp.data.id;
                     dirty = false;
                     dfd.resolve('updated');
                     $rootScope.$broadcast('form:update', $scope.data);
@@ -246,7 +246,7 @@ angular.module('FormDirectives').directive('simpleform', function(){
             $scope.created = function(dfd){
                 return function(resp){
                     dataServ.forceReload = true;
-                    $scope.data.id = resp.id;
+                    $scope.data.id = resp.data.id;
                     dirty = false;
                     dfd.resolve('created');
                     $rootScope.$broadcast('form:create', $scope.data);

@@ -31,19 +31,17 @@ angular.module('baseSites').controller('siteEditController', function($scope, $r
     });
 
     $scope.$on('form:create', function(ev, data){
-        userMessages.successMessage = 'le site ' + data.base_site_name + ' a été créé avec succès.'
+        userMessages.successMessage = 'le site ' + data.base_site_name + ' a été créé avec succès.';
         $location.url($scope._appName + '/site/' + data.id);
     });
 
     $scope.$on('form:update', function(ev, data){
-
-        userMessages.successMessage = 'le site ' + data.base_site_name + ' a été mis à jour avec succès.'
-        $location.url($scope._appName + '/site/' + data.id);
+        userMessages.successMessage = 'le site ' + data.base_site_name + ' a été mis à jour avec succès.';
+        $location.url('/' + $scope._appName + '/site/' + data.id);
     });
 
     $scope.$on('form:delete', function(ev, data){
-
-        userMessages.successMessage = 'le site ' + data.base_site_name + ' a été supprimé.'
+        userMessages.successMessage = 'le site ' + data.base_site_name + ' a été supprimé.';
         dataServ.forceReload = true;
         $location.url($scope._appName + '/site/');
     });

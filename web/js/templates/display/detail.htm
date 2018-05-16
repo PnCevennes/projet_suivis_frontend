@@ -91,7 +91,7 @@
     </div>
 </div>
 <div ng-if="subSchema" class="sub-schema">
-    <a class="btn btn-success" ng-if="subEditAccess" ng-href="#!/{{subSchema.createUrl}}{{dataId}}">{{subSchema.createBtnLabel}}</a>
+    <a class="btn btn-success" ng-if="subEditAccess" ng-href="#/{{subSchema.createUrl}}{{dataId}}">{{subSchema.createBtnLabel}}</a>
     <button type="button" class="btn btn-primary float-right" ng-if="subData.length==0 && subEditAccess && schema.subEditSchemaUrl" ng-click="switchEditing()">{{subSchema.createBtnLabel}} - Rapide</button>
     <div ng-if="!subEditing">
         <div tablewrapper class="table" filter-url="{{schema.subDataUrl+dataId}}" filter-callback="setSubData" schema="subSchema" data="subData" refname="{{subSchema.title}}{{dataId}}">

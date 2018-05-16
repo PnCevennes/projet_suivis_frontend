@@ -28,6 +28,4 @@ require('./directives/display.js');
 require('./directives/form.js');
 require('./controllers/base.js');
 require('./controllers/generic.js');
-
-
 require('./constant.js');

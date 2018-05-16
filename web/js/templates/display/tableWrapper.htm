@@ -57,10 +57,10 @@
             <tbody>
                 <tr ng-repeat="item in $data" ng-click="selectItem(item)" ng-class="{'active': item.$selected}" ng-class-odd="'odd'" ng-class-even="'even'">
                     <td style="text-align: center">
-                        <a class="link-mute" id="item{{item.id}}" ng-href="#!/{{schema.detailUrl}}{{item.id}}">
+                        <a class="link-mute" id="item{{item.id}}" ng-href="#/{{schema.detailUrl}}{{item.id}}">
                             <span class="glyphicon glyphicon-info-sign" tooltip="Afficher"></span>
                         </a>
-                        <a class="link-mute" tooltip="Editer" ng-show="editAccess" ng-href="#!/{{schema.editUrl}}{{item.id}}"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a class="link-mute" tooltip="Editer" ng-show="editAccess" ng-href="#/{{schema.editUrl}}{{item.id}}"><span class="glyphicon glyphicon-pencil"></span></a>
                     </td>
                     <td ng-repeat="column in schema.fields" ng-show="column.options.visible" sortable="column.name" class="site-list-col-{{column.name}}">
                         <input type="checkbox" ng-click="checkItem(item)" ng-model="item._checked" ng-if="column.options.type=='checkable'"></input>
