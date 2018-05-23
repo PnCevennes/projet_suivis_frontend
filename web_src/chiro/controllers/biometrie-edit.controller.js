@@ -9,7 +9,7 @@ angular.module('biometrie').controller('biometrieEditController', function($scop
     }
     else{
         $scope.saveUrl = $scope._appName + '/biometrie'
-        $scope.data = {fkCotxId: $routeParams.otx_id};
+        $scope.data = {id_contact_taxon: parseInt($routeParams.otx_id)};
     }
     $scope.$on('form:init', function(ev, data){
         if($routeParams.id){
@@ -25,7 +25,7 @@ angular.module('biometrie').controller('biometrieEditController', function($scop
             $location.url($scope._appName + '/biometrie/' + data.id);
         }
         else{
-            $location.url($scope._appName + '/taxons/' + data.fkCotxId);
+            $location.url($scope._appName + '/taxons/' + data.id_contact_taxon);
         }
     });
 
@@ -42,7 +42,7 @@ angular.module('biometrie').controller('biometrieEditController', function($scop
     $scope.$on('form:delete', function(ev, data){
         userMessages.infoMessage = "La biométrie n°" + data.id + "a été supprimée."; 
         dataServ.forceReload = true;
-        $location.url($scope._appName + '/taxons/' + data.fkCotxId);
+        $location.url($scope._appName + '/taxons/' + data.id_contact_taxon);
     });
 });
 
