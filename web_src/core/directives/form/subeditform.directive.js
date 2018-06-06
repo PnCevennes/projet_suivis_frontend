@@ -32,7 +32,7 @@ angular.module('FormDirectives').directive('subeditform', function(){
 
             $scope.saved = function(deferred){
                 return function(resp){
-                    resp.ids.forEach(function(item, key){
+                    resp.data.ids.forEach(function(item, key){
                         $scope.data.__items__[key].id = item;
                     });
                     deferred.resolve();
