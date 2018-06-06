@@ -6,7 +6,9 @@ angular.module('DisplayDirectives').directive('fieldDisplay', function(){
             data: '=',
         },
         templateUrl: 'js/templates/display/field.htm',
-        controller: function(){}
+        controller: ['$scope', 'RESOURCES', function($scope, RESOURCES){
+            $scope.api_url = RESOURCES.API_URL;
+        }]
     };
 });
 

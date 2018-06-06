@@ -9,11 +9,13 @@
 <ul ng-if="field.type=='multi'" class="list-unstyled">
     <li ng-repeat="item in data">{{item}}</li>
 </ul>
+
 <ul ng-if="field.type=='file'" class="list-unstyled">
     <li ng-repeat="item in data track by $index">
         <div ng-include="'js/templates/display/filetype-include.htm'">
     </li>
 </ul>
+
 
 <div ng-if="field.type=='subform'" class="well" ng-repeat="item in data track by $index">
         

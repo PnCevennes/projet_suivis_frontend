@@ -1,3 +1,10 @@
-<a ng-if="item.path" ng-href="{{field.options.target||'uploads/'}}{{item.id}}_{{item.path}}" target="blank">{{item.titre}}</a>
-<a ng-if="item.url" ng-href="{{item.url}}" target="blank">{{item.titre}}</a>
-<p>{{item.description}}</p>
+<a 
+    ng-if="item.media_path" 
+    ng-href="{{api_url}}{{item.media_path}}" 
+    target="blank"
+>
+{{item.title_fr}}
+</a>
+<a ng-if="item.url" ng-href="{{item.media_url}}" target="blank">{{item.title_fr}}</a>
+<p>{{item.description_fr}}</p>
+<hr/>
