@@ -1,10 +1,13 @@
 <script type="text/ng-template" id="ng-table/filters/select.html">
-<select class="form-control" ng-model="params.filter()[column.name]" ng-options="item.id as item.libelle for item in column.options.choices.map(filterZero)"></select>
+    <select class="form-control" ng-model="params.filter()[column.name]" ng-options="item.id as item.libelle for item in column.options.choices.map(filterZero)"></select>
 </script>
+
 <ng-transclude></ng-transclude>
+
 <div style="clear: both; margin-top: 5px;">
-<filterform ng-if="filterUrl" url="{{filterUrl}}" schema="schema.filtering" callback="filterCallback"></filterform>
+    <filterform ng-if="filterUrl" url="{{filterUrl}}" schema="schema.filtering" callback="filterCallback"></filterform>
 </div>
+
 <h3 ng-if="!data.length">
     <span class="text-primary">Aucune donnée</span>
 </h3>
