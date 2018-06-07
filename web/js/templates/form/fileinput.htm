@@ -5,8 +5,9 @@
         <select class="form-control" name="media_type" id="media_type" 
             ng-model="data.id_nomenclature_media_type"
             ng-options="item.id_nomenclature as item.label_default for item in media_type"
+            ng-required="true"
+            ng-style="!data.id_nomenclature_media_type && {'border-color':'red'}" 
         ></select>
-        
         <h4><label for="titre">Titre</label></h4>        
         <input class="form-control" type="text" id="titre" ng-model="data.title_fr" ng-required="true"></input>
         

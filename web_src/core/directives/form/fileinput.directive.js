@@ -87,7 +87,8 @@ angular.module('FormDirectives').directive('fileinput', function(){
                     if(
                         ($scope.refer[idx].media_path && $scope.refer[idx].media_path.length) ^ 
                         ($scope.refer[idx].media_url && $scope.refer[idx].media_url.length>0) ^ 
-                        ($scope.refer[idx].file_name && $scope.refer[idx].file_name.length>0)
+                        ($scope.refer[idx].file_name && $scope.refer[idx].file_name.length>0)^ 
+                        ($scope.refer[idx].id_nomenclature_media_type && $scope.refer[idx].id_nomenclature_media_type.length>0)
                     ){
                         var valid = !!($scope.refer[idx].title_fr && $scope.refer[idx].title_fr.length > 0);
                         return valid;
