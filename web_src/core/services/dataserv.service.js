@@ -54,6 +54,9 @@ angular.module('suiviProtocoleServices').service('dataServ',
                         case 400: 
                             userMessages.errorMessage = "Données inutilisables";
                             break;
+                        case 302: 
+                            userMessages.errorMessage = "Droits insuffisants";
+                            break;
                         default: userMessages.errorMessage = "Erreur !";
                     };
                     error(err);

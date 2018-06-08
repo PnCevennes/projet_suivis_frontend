@@ -5,7 +5,7 @@ angular.module('baseObservations').controller('inventaireDetailController', func
     $scope._appName = $routeParams.appName;
 
     $scope.schemaUrl = 'config?app='+ $routeParams.appName + '&vue=visite&vue=detail_ssite';
-    $scope.dataUrl = $scope._appName + '/observation/' + $routeParams.id;
+    $scope.dataUrl = $scope._appName + '/visite/' + $routeParams.id;
     $scope.updateUrl = '#/' + $scope._appName + '/edit/inventaire/' + $routeParams.id;
     $scope.dataId = $routeParams.id;
 
@@ -13,7 +13,7 @@ angular.module('baseObservations').controller('inventaireDetailController', func
         $scope.title = "Inventaire du " + data.visit_date.replace(/(\d+)-(\d+)-(\d+)/, '$3/$2/$1');
         
         mapService.initialize('static/configs/suivi_chiro/resources/chiro_obs.json').then(function(){
-            mapService.loadData($scope._appName + '/observation').then(function(){
+            mapService.loadData($scope._appName + '/inventaires').then(function(){
                 mapService.selectItem($routeParams.id);
             });
         });

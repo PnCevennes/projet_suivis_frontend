@@ -3,14 +3,15 @@
  */
 angular.module('baseObservations').controller('inventaireEditController', function($scope, $rootScope, $routeParams, $location, configServ, dataServ, userMessages){
     $scope._appName = $routeParams.appName;
-    $scope.configUrl = $scope._appName + '/config/observation/sans-site/form';
+    $scope.configUrl =  'config?app='+ $routeParams.appName + '&vue=visite&vue=form_ssite';
+
     if($routeParams.id){
-        $scope.saveUrl = $scope._appName + '/observation/' + $routeParams.id;
-        $scope.dataUrl = $scope._appName + '/observation/' + $routeParams.id;
+        $scope.saveUrl = $scope._appName + '/visite/' + $routeParams.id;
+        $scope.dataUrl = $scope._appName + '/visite/' + $routeParams.id;
         $scope.data = {__origin__: {geom: $routeParams.id}};
     }
     else{
-        $scope.saveUrl = $scope._appName + '/observation';
+        $scope.saveUrl = $scope._appName + '/visite';
         $scope.data = {};
     }
 
@@ -35,7 +36,7 @@ angular.module('baseObservations').controller('inventaireEditController', functi
 
     $scope.$on('form:cancel', function(ev, data){
         if(data.id_base_visit){
-            $location.url($scope._appName + '/inventaire/' + data.id_base_visit);
+            $location.url($scope._appName + '/inventaire/' + data.id);
         }
         else{
             $location.url($scope._appName + '/inventaire');
@@ -43,17 +44,17 @@ angular.module('baseObservations').controller('inventaireEditController', functi
     });
 
     $scope.$on('form:create', function(ev, data){
-        userMessages.infoMessage = "l'inventaire n° " + data.id_base_visit + " du " + frDate(data.visit_date) + ' a été créée avec succès.';
-        $location.url($scope._appName + '/inventaire/' + data.id_base_visit);
+        userMessages.infoMessage = "l'inventaire n° " + data.id + " du " + frDate(data.visit_date) + ' a été créée avec succès.';
+        $location.url($scope._appName + '/inventaire/' + data.id);
     });
 
     $scope.$on('form:update', function(ev, data){
-        userMessages.infoMessage = "l'inventaire n° " + data.id_base_visit + " du " + frDate(data.visit_date) + ' a été mise à jour avec succès.';
-        $location.url($scope._appName + '/inventaire/' + data.id_base_visit);
+        userMessages.infoMessage = "l'inventaire n° " + data.id + " du " + frDate(data.visit_date) + ' a été mise à jour avec succès.';
+        $location.url($scope._appName + '/inventaire/' + data.id);
     });
 
     $scope.$on('form:delete', function(ev, data){
-        userMessages.infoMessage = "l'inventaire n° " + data.id_base_visit + " du " + frDate(data.visit_date) + " a été supprimé.";
+        userMessages.infoMessage = "l'inventaire n° " + data.id + " du " + frDate(data.visit_date) + " a été supprimé.";
         dataServ.forceReload = true;
         $location.url($scope._appName + '/inventaire');
     });

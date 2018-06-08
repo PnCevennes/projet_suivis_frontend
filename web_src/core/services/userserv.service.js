@@ -56,7 +56,7 @@ angular.module('suiviProtocoleServices').service(
     this.logout = function(){
         dataServ.get('auth/logout', 
                 this.disconnected, 
-                function(){}, 
+                this.disconnected, 
                 true);
     };
 

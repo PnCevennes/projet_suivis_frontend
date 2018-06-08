@@ -1,14 +1,14 @@
 /*
  *  Liste des observations sans site
  */
-angular.module('baseObservations').controller('observationListController', function($scope, $routeParams, dataServ, mapService, configServ, $loading, userServ, $q, $timeout){
+angular.module('baseObservations').controller('inventaireListController', function($scope, $routeParams, dataServ, mapService, configServ, $loading, userServ, $q, $timeout){
     $scope._appName = $routeParams.appName;
 
 
     var data = [];
     $scope._appName = $routeParams.appName;
     $scope.editAccess = userServ.checkLevel(2);
-    $scope.data_url = $routeParams.appName + '/visites';
+    $scope.data_url = $routeParams.appName + '/inventaires';
     $scope.data = [];
 
     
@@ -24,9 +24,9 @@ angular.module('baseObservations').controller('observationListController', funct
     });
     
     $scope.setData = function(resp, deferred){
-        $scope.items = resp;
+        $scope.items = resp.features;
         mapService.initialize('static/configs/suivi_chiro/resources/chiro_obs.json').then(function(){
-            $scope.data = resp.map(function(item){
+            $scope.data = resp.features.map(function(item){
                 mapService.addGeom(item);
                 return item.properties;
             });
@@ -45,7 +45,7 @@ angular.module('baseObservations').controller('observationListController', funct
     };
 
     $timeout(function(){
-        configServ.getUrl($scope._appName + '/config/observation/sans-site/list', $scope.setSchema);
+        configServ.getUrl('config?app=' + $scope._appName + '&vue=visite&vue=list_ssite', $scope.setSchema);
     }, 0);
 });
 

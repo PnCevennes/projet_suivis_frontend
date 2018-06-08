@@ -65,6 +65,7 @@ angular.module('FormDirectives').directive('spreadsheet', function(){
                 $scope.data.forEach(function(line){
                     var line_valid = true;
                     var line_empty = true;
+                    
                     $scope.schema.fields.forEach(function(field){
                         if(field.type == "hidden"){
                             if(field.options && field.options.ref == 'userId' && line[field.name] == null){
@@ -96,7 +97,7 @@ angular.module('FormDirectives').directive('spreadsheet', function(){
                             }
                         }
                     });
-                    if(line_valid){
+                    if(line_valid && !line_empty){
                         out.push(line);
                     }
                     else{

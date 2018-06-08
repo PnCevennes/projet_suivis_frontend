@@ -4,8 +4,8 @@
 angular.module('baseObservations').config(function($routeProvider){
     $routeProvider
         .when('/:appName/inventaire', {
-            controller: 'observationListController',
-            templateUrl: 'js/views/observation/list.htm'
+            controller: 'inventaireListController',
+            templateUrl: 'js/views/inventaire/list.htm'
         })
         .when('/:appName/observation/site/:id', {
             controller: 'observationSiteListController',
@@ -13,7 +13,7 @@ angular.module('baseObservations').config(function($routeProvider){
         })
         .when('/:appName/inventaire/:id', {
             controller: 'inventaireDetailController',
-            templateUrl: 'js/views/observation/detailSsSite.htm'
+            templateUrl: 'js/views/inventaire/detail.htm'
         })
         .when('/:appName/edit/observation', {
             controller: 'observationEditController',
@@ -42,7 +42,7 @@ angular.module('baseObservations').config(function($routeProvider){
 
 });
 
-require('./observation-list.controller.js');
+require('./inventaire-list.controller.js');
 require('./observation-edit.controller.js');
 require('./observation-detail.controller.js');
 require('./inventaire-detail.controller.js');
