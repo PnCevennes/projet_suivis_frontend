@@ -34,7 +34,7 @@ angular.module('suiviProtocoleServices').service('dataServ',
             error = function(err){console.log(err)};
         }
         if(cache[url] == undefined || force || this.forceReload){
-            $http.get(baseurl + url)
+            $http.get(baseurl + url, { withCredentials: true })
                 .then(function(data){
                     this.forceReload = false;
                     cache[url] = data.data;
@@ -79,7 +79,7 @@ angular.module('suiviProtocoleServices').service('dataServ',
      */
     this.post = function(url, data, success, error){
         $http.post(
-            this.baseurl + url, data
+            this.baseurl + url, data, { withCredentials: true }
         ).then(
             success,
             error || function(err){console.log(err);}
@@ -92,7 +92,7 @@ angular.module('suiviProtocoleServices').service('dataServ',
      *  cf. this.post
      */
     this.put = function(url, data, success, error){
-        $http.put(this.baseurl + url, data).then(
+        $http.put(this.baseurl + url, data, { withCredentials: true }).then(
             success,
             error || function(err){console.log(err);}
         );
@@ -106,7 +106,7 @@ angular.module('suiviProtocoleServices').service('dataServ',
      *  error: la callback de traitement en cas d'erreur gérable
      */
     this.delete = function(url, success, error){
-        $http.delete(this.baseurl + url).then(
+        $http.delete(this.baseurl + url, { withCredentials: true }).then(
             success,
             error || function(err){console.log(err);}
         );
