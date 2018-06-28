@@ -13,17 +13,35 @@ angular.module('DisplayDirectives').directive('xhrdisplay', function(){
         },
         template: '{{value}}',
         controller: ['$scope', 'dataServ', function($scope, dataServ){
+            $scope.multi = false;
+
             $scope.setResult = function(resp){
                 if ($scope.xhroptions) {
-                    $scope.value = $scope.xhroptions.displayField.map(function(a) {return resp[a]}).join(' ')
+                    value = $scope.xhroptions.displayField.map(function(a) {return resp[a]}).join(' ')
                 }
                 else {
-                    $scope.value = resp.label;
+                    value = resp.label;
+                }
+                if ($scope.multi) {
+                    $scope.value += value + " ";
+                }
+                else {
+                    $scope.value = value;
                 }
             };
             $scope.$watch(function(){return $scope.inputid}, function(newval, oldval){
                 if(newval){
-                    dataServ.get($scope.xhroptions.url + '/' + newval, $scope.setResult);
+                    $scope.value = "";
+                    if (newval.constructor == Array) {
+                        $scope.multi = true;
+                        newval.forEach(function(item) {
+                            dataServ.get($scope.xhroptions.url + '/' + item, $scope.setResult);
+                        });
+                    }
+                    else {
+                        $scope.multi = false;
+                        dataServ.get($scope.xhroptions.url + '/' + newval, $scope.setResult);
+                    }
                 }
             });
         }]
