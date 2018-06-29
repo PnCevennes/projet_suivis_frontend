@@ -31,7 +31,7 @@ angular.module('FormDirectives').directive('taxhubangucomplete', ['dataServ', '$
             $scope.find = function(txt){
                 dfd = $q.defer();
                 if(txt){
-                    url = "taxref/allnamebylist/500?search_name=" + txt
+                    url = "taxref/allnamebylist/" + $scope.options.id_liste + "?search_name=" + txt
                    
                     dataServ.get(url, function(resp){
                         results = $scope.mapResponse(resp);
