@@ -19,6 +19,7 @@
                         <taxhubangucomplete 
                             id="{{field.name}}" inputclass="form-control" name="{{field.name}}"
                             selectedobject="line[field.name]" 
+                            options="field.options"
                             titlefield="label" ng-if="field.type=='taxhub' && !field.options.multi" 
                             initial="line[field.name]" 
                             ngrequired="field.options.required" ngdisabled="field.options.readOnly"
