@@ -2,7 +2,8 @@
  * service utilisateur
  */
 angular.module('suiviProtocoleServices').service(
-    'userServ', ['dataServ', '$rootScope', 'localStorageService', function(dataServ, $rootScope, localStorageService){
+    'userServ', ['dataServ', '$rootScope', 'localStorageService', '$cookies', 'RESOURCES',
+function(dataServ, $rootScope, localStorageService, $cookies, RESOURCES){
     var _user = null;
     var _tmp_password = '';
 
@@ -29,6 +30,13 @@ angular.module('suiviProtocoleServices').service(
         localStorageService.set('currentApp', appId);
     };
     
+    this.forceLogin = function() {
+        userStore = this.getUser();
+        if (userStore) {
+            this.login(userStore.user.identifiant, userStore.pass);
+        }
+    };
+
     this.checkLevel = angular.bind(this, function(level){
         try{
             return this.getUser().user.apps[this.getCurrentApp().appId] >= level;
@@ -47,7 +55,10 @@ angular.module('suiviProtocoleServices').service(
 
     this.login = function(login, password, app){
         _tmp_password = password;
-        dataServ.post('auth/login', {login: login, password: password, id_application: 100, with_cruved: false},
+        if (app == undefined) {
+            app = RESOURCES.ID_APP;
+        }
+        dataServ.post('auth/login', {login: login, password: password, id_application: app, with_cruved: false},
             this.connected,
             this.error
         );
@@ -80,4 +91,3 @@ angular.module('suiviProtocoleServices').service(
 
     
 }]);
-

@@ -5,7 +5,7 @@ angular.module('appSuiviProtocoles').controller('loginController', ['$scope', '$
     if(userServ.getUser()){
         $scope.data = {
             login: userServ.getUser().user.identifiant,
-            pass: userServ.getUser().pass, 
+            pass: userServ.getUser().pass
         };
     }
     else{
@@ -14,8 +14,8 @@ angular.module('appSuiviProtocoles').controller('loginController', ['$scope', '$
 
     $scope.$on('user:login', function(ev, user){
         userMessages.infoMessage =  'Bienvenue ' + user.user.identifiant;
-        
-        $location.url('apps'); 
+
+        $location.url('apps');
     });
 
     $scope.$on('user:error', function(ev){

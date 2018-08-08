@@ -30,7 +30,18 @@ angular.module('appSuiviProtocoles').config(['localStorageServiceProvider', func
 ).config(['$locationProvider', function($locationProvider) {
     $locationProvider.hashPrefix('');
 }]
-)
+).run(function($cookies, $interval, userServ) {
+
+    var testCookieToken = function() {
+       var tokenCookies = $cookies.get('token');
+       if (tokenCookies == undefined) {
+            userServ.forceLogin();
+       }
+    };
+
+    $interval(testCookieToken, 1000, 0, false);
+
+  })
 
 require('./base.controller.js');
 require('./login.controller.js');

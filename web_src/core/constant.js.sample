@@ -2,6 +2,7 @@
 angular.module('appSuiviProtocoles').constant('RESOURCES', 
     {
         API_URL: "http://localhost:8000/",
-        TAXHUB_URL: "http://localhost:5000/api/"
+        TAXHUB_URL: "http://localhost:5000/api/",
+        ID_APP: 100
     }
 )
