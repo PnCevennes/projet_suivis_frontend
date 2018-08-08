@@ -9,6 +9,10 @@ Documentation
 
 TODO
 
+Prerequis
+---------
+browersify ```npm install -g browserify```
+apache2
 
 Installation
 ------------
