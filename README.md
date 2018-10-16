@@ -1,7 +1,6 @@
 # Front end du Projet application suivis
-=========================
 
-Application de saisie des protocoles de suivi naturaliste qui fonctionne avec Géonature comme backend
+Application de saisie des protocoles de suivi naturaliste qui fonctionne avec [GeoNature](https://github.com/PnX-SI/GeoNature) comme backend ainsi qu'un module GeoNature dédié à un protocole comme celui pour le [Suivi des chiroptères](https://github.com/PnCevennes/gn_module_suivi_chiro).
 
 
 Documentation
@@ -17,17 +16,17 @@ apache2
 Installation
 ------------
 
-Copier le fichier de paramètres et adapter en fonction: 
+Copier le fichier de paramètres et adapter en fonction : 
 ```
   cp web_src/core/constant.js.sample web_src/core/constant.js
 ```
 
-Générer les fichiers javascript 
+Générer les fichiers JavaScript :
 ```
   ./web_src/compile.sh
 ```
 
-Rendre le répertoire web accessible par apache ou nginx
+Rendre le répertoire web accessible par Apache ou Nginx.
 
 Technologies
 ------------
