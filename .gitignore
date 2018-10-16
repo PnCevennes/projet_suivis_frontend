@@ -1,3 +1,5 @@
 web/js/core.app.js 
 web/js/chiro.app.js 
 web_src/core/constant.js
+config/apps.toml
+config/settings.ini
