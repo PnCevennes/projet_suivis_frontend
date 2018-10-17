@@ -19,12 +19,16 @@
             inputclass="form-control" selectedobject="data[$index]" 
             options="schema.options" 
             titlefield="label" initial="data[$index]"
+            ng-required="true"
         >
             <button ng-if="$index==(data.length-1)" class="btn btn-success" type="button" ng-click="add()" ng-disabled="addDisabled"><span class="glyphicon glyphicon-plus"></span></button>
             <button class="btn btn-danger" tabindex="-1" ng-if="data.length>1" ng-click="remove($index)"><span class="glyphicon glyphicon-remove"></span></button>
         </angucompletewrapper>
     </div>
 </div>
+    <div ng-if="required_constraint" class="invalid-feedback" 
+        style="color: red; font-style: italic;"
+    > * Au moins une valeur est obligatoire</div>
 <div ng-if="schema.type!='xhr'" class="row col-lg-12">
     <button type="button" class="btn btn-default btn-sm" ng-click="add()" ng-disabled="addDisabled">Ajouter <span class="glyphicon glyphicon-plus"></span></button>
 </div>

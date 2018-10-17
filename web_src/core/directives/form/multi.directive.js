@@ -14,6 +14,7 @@ angular.module('FormDirectives').directive('multi', ['userMessages', '$timeout',
         templateUrl: 'js/templates/form/multi.htm',
         link: function($scope, elem){
             $scope.addDisabled = true;
+            $scope.required_constraint = true;
             if(!$scope.refer){
                 $scope.refer = [];
             }
@@ -27,6 +28,9 @@ angular.module('FormDirectives').directive('multi', ['userMessages', '$timeout',
                     }
                     else{
                         $scope.addDisabled = false;
+                        if (newval[0]) {
+                            $scope.required_constraint = false;
+                        }
                     }
                 }
             });
@@ -48,6 +52,12 @@ angular.module('FormDirectives').directive('multi', ['userMessages', '$timeout',
                         else{
                             $scope.addDisabled = true;
                         }
+                        if ($scope.data[0]) {
+                            $scope.required_constraint = false;
+                        }
+                        else {
+                            $scope.required_constraint = true;
+                        }
                     }
                 );
                 $timeout(function(){
@@ -65,11 +75,11 @@ angular.module('FormDirectives').directive('multi', ['userMessages', '$timeout',
             $scope.remove = function(idx){
                 $scope.data.splice(idx, 1);
             };
+
             if($scope.refer && $scope.refer.length==0){
                 $scope.add(null);
             }
             else{
-            //if($scope.data && $scope.data.length>0){
                 $scope.addDisabled = false;
             }
         }

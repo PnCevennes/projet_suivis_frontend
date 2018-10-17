@@ -91,6 +91,23 @@ angular.module('FormDirectives').directive('simpleform', function(){
                     else{
                         return false;
                     }
+                    $scope.schema.groups[i].fields.forEach(
+                        function(field) {
+                            if (field.options.required && field.options.multi) {
+                                if ($scope.data[field.name] == undefined) {
+                                    return false;
+                                }
+                                if ($scope.data[field.name].length > 0) {
+                                    if ($scope.data[field.name][0] == undefined){
+                                        return false
+                                    }
+                                }
+                                else {
+                                    return false
+                                }
+                            }
+                        }
+                    )
                 }
                 return true;
                 //return $scope.Simpleform.$valid;
