@@ -10,23 +10,33 @@ TODO
 
 Prerequis
 ---------
-browersify ```npm install -g browserify```
+Avoir un [GeoNature](https://github.com/PnX-SI/GeoNature)  installé
+
 apache2
 
 Installation
 ------------
 
-Copier le fichier de paramètres et adapter en fonction : 
+copier le fichier config/settings.ini.sample et 
+
 ```
-  cp web_src/core/constant.js.sample web_src/core/constant.js
+  cp config/settings.ini.sample config/settings.ini
+  nano config/settings.ini
 ```
 
-Générer les fichiers JavaScript :
+lancer le script d'installation
+
 ```
-  ./web_src/compile.sh
+./install.sh
+
 ```
 
-Rendre le répertoire web accessible par Apache ou Nginx.
+
+Configuration
+-------------
+
+* Ajouter/ modifier une application : modifier le fichier config/apps.toml
+
 
 Technologies
 ------------
