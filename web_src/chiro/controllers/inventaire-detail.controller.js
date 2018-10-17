@@ -10,7 +10,7 @@ angular.module('baseObservations').controller('inventaireDetailController', func
     $scope.dataId = $routeParams.id;
 
     $scope.$on('display:init', function(ev, data){
-        $scope.title = "Inventaire du " + data.visit_date.replace(/(\d+)-(\d+)-(\d+)/, '$3/$2/$1');
+        $scope.title = "Inventaire du " + data.visit_date_min.replace(/(\d+)-(\d+)-(\d+)/, '$3/$2/$1');
         
         mapService.initialize('static/configs/suivi_chiro/resources/chiro_obs.json').then(function(){
             mapService.loadData($scope._appName + '/inventaires').then(function(){

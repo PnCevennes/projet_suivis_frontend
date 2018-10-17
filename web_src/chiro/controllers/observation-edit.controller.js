@@ -24,8 +24,8 @@ angular.module('baseObservations').controller('observationEditController', funct
     }
 
     $scope.$on('form:init', function(ev, data){
-        if(data.visit_date){
-            $scope.title = "Modification de la visite du " + frDate(data.visit_date);
+        if(data.visit_date_min){
+            $scope.title = "Modification de la visite du " + frDate(data.visit_date_min);
             // breadcrumbs
         }
         else{
@@ -43,17 +43,17 @@ angular.module('baseObservations').controller('observationEditController', funct
     });
 
     $scope.$on('form:create', function(ev, data){
-        userMessages.infoMessage = "La visite n° " + data.id + " du " + frDate(data.visit_date) + ' a été créée avec succès.';
+        userMessages.infoMessage = "La visite n° " + data.id + " du " + frDate(data.visit_date_min) + ' a été créée avec succès.';
         $location.url($scope._appName + '/observation/' + data.id);
     });
 
     $scope.$on('form:update', function(ev, data){
-        userMessages.infoMessage = "La visite n° " + data.id + " du " + frDate(data.visit_date) + ' a été mise à jour avec succès.';
+        userMessages.infoMessage = "La visite n° " + data.id + " du " + frDate(data.visit_date_min) + ' a été mise à jour avec succès.';
         $location.url($scope._appName + '/observation/' + data.id);
     });
 
     $scope.$on('form:delete', function(ev, data){
-        userMessages.infoMessage = "La viste n° " + data.id + " du " + frDate(data.visit_date) + " a été supprimée.";
+        userMessages.infoMessage = "La viste n° " + data.id + " du " + frDate(data.visit_date_min) + " a été supprimée.";
         dataServ.forceReload = true;
         $location.url($scope._appName + '/site/' + data.id_base_site);
     });
