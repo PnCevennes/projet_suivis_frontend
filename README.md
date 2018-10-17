@@ -5,8 +5,9 @@ Application de saisie des protocoles de suivi naturaliste qui fonctionne avec [G
 
 Documentation
 ------------
+Ebauche de schema représentant l'articulation entre geonature v2 et l'application
 
-TODO
+![architecture](docs/20150909_172711.jpg)
 
 Prerequis
 ---------
