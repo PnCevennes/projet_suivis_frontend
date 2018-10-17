@@ -61,8 +61,8 @@ then
     cp config/apps.toml.sample config/apps.toml
 fi
 
-mkdir -p ~/dev/GeoNature/backend/static/configs/suivis 
-ln -s $SCRIPTPATH/config/apps.toml ~/dev/GeoNature/backend/static/configs/suivis
+mkdir -p $GEONATURE_PATH/backend/static/configs/suivis 
+ln -s $SCRIPTPATH/config/apps.toml $GEONATURE_PATH/backend/static/configs/suivis
 
 # Compilation
 ./web_src/compile.sh
