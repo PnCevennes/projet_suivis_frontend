@@ -15,6 +15,11 @@ then
     exit
 fi
 
+if ! type "browserify" > /dev/null; then
+    echo "Browserify n'est pas installé"
+    exit
+fi
+
 . $GEONATURE_PATH/config/settings.ini
 
 SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"

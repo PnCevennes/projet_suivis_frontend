@@ -4,21 +4,24 @@ Application de saisie des protocoles de suivi naturaliste qui fonctionne avec [G
 
 
 Documentation
-------------
+-------------
 Ebauche de schema représentant l'articulation entre geonature v2 et l'application
 
 ![architecture](docs/20150909_172711.jpg)
 
 Prerequis
 ---------
-Avoir un [GeoNature](https://github.com/PnX-SI/GeoNature)  installé
-
-apache2
+* Avoir [GeoNature2](https://github.com/PnX-SI/GeoNature)  installé
+* apache2
+* [browersify](http://browserify.org/)
+```
+  npm install -g browserify
+```
 
 Installation
 ------------
 
-copier le fichier config/settings.ini.sample et 
+copier le fichier config/settings.ini.sample et le completer
 
 ```
   cp config/settings.ini.sample config/settings.ini
@@ -37,7 +40,9 @@ Configuration
 -------------
 
 * Ajouter/ modifier une application : modifier le fichier config/apps.toml
-
+* Modification des configurations : 
+  * Modifier le fichier web_src/core/constant.js
+  * lancer la commande ./web_src/compile.sh
 
 Technologies
 ------------
