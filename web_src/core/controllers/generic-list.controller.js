@@ -6,6 +6,9 @@ angular.module('generiques').controller('genericListController', ['$scope', '$ro
 
     var _configUrl = $routeParams.appName + '/config/' + $routeParams.viewName + '/list';
 
+    // * modifs joel
+    _configUrl = 'config?app=' + $routeParams.appName + '&vue=' + $routeParams.viewName + '&vue=list';
+
     /*
      * Spinner
      * */
@@ -22,8 +25,8 @@ angular.module('generiques').controller('genericListController', ['$scope', '$ro
         if($scope.schema.mapConfig){
             $scope.items = resp;
             mapService.initialize($scope.schema.mapConfig).then(function(){
-                $scope.data = resp.map(function(item){
-                    mapService.addGeom(item); 
+                $scope.data = resp.features.map(function(item){
+                    mapService.addGeom(item);
                     return item.properties;
                 });
             });
