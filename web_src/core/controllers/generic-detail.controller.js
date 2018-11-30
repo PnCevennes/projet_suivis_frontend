@@ -4,6 +4,13 @@ angular.module('generiques').controller('genericDetailController', [ '$scope', '
     $scope.configUrl = 'config?app='+ $routeParams.appName + '&vue=' + $routeParams.viewName + '&vue=detail';
     $scope.dataUrl = null;
 
+    $scope.updateUrl = '#/g/'+ $routeParams.appName + '/' + $routeParams.viewName + '/edit/' + $routeParams.id;
+
+//!!!!!
+    // $scope.dataUrl = $scope._appName + '/site/' + $routeParams.id;
+    // $scope.dataId = $routeParams.id;
+    // $scope.updateUrl = '#/' + $scope._appName + '/edit/site/' + $routeParams.id;
+
     $scope.$on('schema:init', function(ev, schema){
         if(schema){
             $scope.schema = schema;

@@ -1,10 +1,8 @@
-
 <a class="float-right btn btn-warning" ng-if="updateUrl && editAccess" ng-href="{{updateUrl}}">Modifier</a>
 <ng-transclude></ng-transclude>
 <div class="detail-display">
     <uib-tabset justified="true" ng-if="schema.groups.length>1" >
         <uib-tab ng-repeat="group in schema.groups">
-            
             <uib-tab-heading>
                 <span class="glyphicon {{group.glyphicon}}" ng-if="group.glyphicon"></span>
                 {{group.name}}
@@ -68,6 +66,7 @@
         </uib-tab>
     </uib-tabset>
     <div ng-if="schema.groups.length==1">
+        {{group=schema.groups[0];""}}
         <div ng-repeat="field in group.fields" ng-switch="field.type">
             <div class="panel panel-default" ng-switch-when="group">
                 <div class="panel-heading">{{field.name}}</div>

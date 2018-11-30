@@ -20,9 +20,18 @@
         >
 
         <div id="{{field.name}}"
-          datepick ng-if="field.type=='date' && !field.options.multi" date="data[field.name]"
+          datepick ng-if="field.type=='date' && !field.options.multi" 
+          date="data[field.name]"
           ngrequired="field.options.required" ngdisabled="field.options.readOnly"
         ></div>
+
+        <input ng-if="field.type=='time' && !field.options.multi" type="time" time="data[field.name]" name="{{field.name}}"
+        id="{{field.name}}"
+        class="form-control"
+        ng-model="data[field.name]"
+        ngrequired="field.options.required" ngdisabled="field.options.readOnly"
+        value="{{data[field.name]|date}}">
+        <!-- ng-model="time_display" -->
 
         <input id="{{field.name}}"
           type="checkbox" ng-if="field.type=='bool' && !field.options.multi" ng-model="data[field.name]" ng-disabled="field.options.readOnly"

@@ -2,6 +2,7 @@
 <div ng-if="field.type=='string'" style="white-space: pre">{{data}}</div>
 <div ng-if="field.type=='num'">{{data}}</div>
 <div ng-if="field.type=='date'">{{data|datefr}}</div>
+<div ng-if="field.type=='time'">{{data | date}}</div>
 <div ng-if="field.type=='select'">{{field.options.choices|tselect:data}}</div>
 <div ng-if="field.type=='multisel'">{{field.options.choices|tmultisel:data}}</div>
 <div ng-if="field.type=='bool'">{{data? 'Oui' : 'Non'}}</div>
@@ -18,13 +19,13 @@
 
 
 <div ng-if="field.type=='subform'" class="well" ng-repeat="item in data track by $index">
-        
+
     <dl ng-repeat="subf in field.fields track by $index" class="dl-horizontal">
         <dt>{{subf.label}}</dt>
         <dd>
             <div ng-if="subf.type=='string'" style="white-space: pre">{{item[subf.name]}}</div>
             <div ng-if="subf.type=='num'">{{item[subf.name]}}</div>
-            <div ng-if="subf.type=='date'">{{item[subf.name]|datefr}}</div>
+            <div ng-if="subf.type=='date'">iii{{item[subf.name]|datefr}}</div>
             <div ng-if="subf.type=='select'">{{subf.options.choices|tselect:item[subf.name]}}</div>
             <div ng-if="subf.type=='multisel'">{{subf.options.choices|tmultisel:item[subf.name]}}</div>
             <div ng-if="subf.type=='bool'">{{item[subf.name]? 'Oui' : 'Non'}}</div>
@@ -35,9 +36,9 @@
             <ul ng-if="subf.type=='file'" class="list-unstyled">
                 <li ng-repeat="sitem in item[subf.name]">
                 <a ng-href="{{subf.options.target||'uploads/'}}{{sitem.fname}}" target="blank">{{sitem.fname.slice(sitem.fname.indexOf('_')+1)}}</a>
-                    <p>{{sitem.commentaire||'Pas de description'}}</p>        
+                    <p>{{sitem.commentaire||'Pas de description'}}</p>
                 </li>
-            </ul>           
+            </ul>
         </dd>
     </dl>
 </div>

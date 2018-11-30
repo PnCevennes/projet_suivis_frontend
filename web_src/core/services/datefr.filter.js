@@ -12,3 +12,14 @@ angular.module('suiviProtocoleServices').filter('datefr', function(){
     }
 });
 
+angular.module('suiviProtocoleServices').filter('time', function(){
+    return function(input){
+        try{
+            return input.replace(/.* (\d+)\:(\d+)\:(\d+).*/i, "$1:$2");
+        }
+        catch(e){
+            return input;
+        }
+    }
+});
+

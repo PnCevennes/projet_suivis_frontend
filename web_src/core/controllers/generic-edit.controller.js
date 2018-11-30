@@ -1,9 +1,9 @@
 angular.module('generiques').controller('genericEditController', ['$scope', '$routeParams', 'configServ', 'dataServ', 'userServ', '$loading', 'mapService', '$q', '$timeout', 'userMessages', '$location', function($scope, $routeParams, configServ, dataServ, userServ, $loading, mapService, $q, $timeout, userMessages, $location){
 
     $scope._appName = $routeParams.appName;
-    $scope.configUrl = $routeParams.appName + '/config/' + $routeParams.viewName + '/form';
+    $scope.configUrl = 'config?app='+ $routeParams.appName + '&vue=' + $routeParams.viewName + '&vue=form';
 
-    var _redirectUrl = $routeParams.appName + '/' + $routeParams.viewName + '/';
+    var _redirectUrl = 'g/' + $routeParams.appName + '/' + $routeParams.viewName + '/detail/';
 
     if($routeParams.id){
         $scope.saveUrl = $scope._appName + '/' + $routeParams.viewName + '/' + $routeParams.id;
