@@ -25,12 +25,14 @@
           ngrequired="field.options.required" ngdisabled="field.options.readOnly"
         ></div>
 
-        <input ng-if="field.type=='time' && !field.options.multi" type="time" time="data[field.name]" name="{{field.name}}"
+
+
+        <input ng-if="field.type=='time' && !field.options.multi" type="time" name="{{field.name}}"
         id="{{field.name}}"
         class="form-control"
         ng-model="data[field.name]"
         ngrequired="field.options.required" ngdisabled="field.options.readOnly"
-        value="{{data[field.name]|date}}">
+        value="{{data[field.name]|time}}">
         <!-- ng-model="time_display" -->
 
         <input id="{{field.name}}"
