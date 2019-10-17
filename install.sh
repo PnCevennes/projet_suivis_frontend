@@ -29,7 +29,7 @@ SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
 ID_APP=$(export PGPASSWORD=$user_pg_pass;psql -h $db_host -U $user_pg -d $db_name -t -c "
 SELECT id_application
 FROM utilisateurs.t_applications
-WHERE nom_application = 'suivi'
+WHERE code_application = 'SUIVIS'
 LIMIT 1
 ")
 
