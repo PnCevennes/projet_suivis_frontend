@@ -214,7 +214,6 @@ angular.module('FormDirectives').directive('simpleform', function(){
                 promise.then(function(result) {
                     $loading.finish('spinner-send');
                 });
-                console.log( $scope.data);
                 
                 if($scope.dataUrl){
                     dataServ.post($scope.saveUrl, $scope.data, $scope.updated(dfd), $scope.error(dfd));
