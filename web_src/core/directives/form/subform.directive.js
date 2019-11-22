@@ -8,7 +8,22 @@ angular.module('FormDirectives').directive('subform', function(){
         templateUrl: 'js/templates/form/subform.htm',
         controller: ['$scope', function($scope){
             if($scope.refer == undefined){
-                $scope.refer = [{}];
+                obj = {};
+                // Création d'un objet avec les valeurs par défault spécifié dans la config
+                // TODO : Finaliser pour tous les types de champs
+                $scope.schema.forEach(function(field) {
+                    default_value = field.default != undefined ? field.default : null;
+                    try {
+                        if (field.options.default && field.type == "select") {
+                            default_value = field.options.default[0];
+                        }
+                    }
+                    catch(e) {}
+                    
+                    obj[field.name] = default_value;
+                });
+
+                $scope.refer = [obj];
             }
 
             $scope.items = angular.copy($scope.refer);
