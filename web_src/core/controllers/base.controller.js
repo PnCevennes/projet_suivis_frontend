@@ -41,14 +41,10 @@ angular.module('appSuiviProtocoles').controller('baseController', ['$scope', '$l
         $scope.$on('app:select', function(ev, app){
             $scope.app = app;
             $scope.setActive(app.menu[0]);
-            console.log($scope.app);
-            
         });
 
         $scope.$on('app:selection', function(ev){
             $scope.app = {name: "Suivi des protocoles", menu: []};
-            console.log($scope.app);
-            
         });
     };
 

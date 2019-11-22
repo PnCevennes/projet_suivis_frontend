@@ -41,7 +41,7 @@ angular.module('FormDirectives').directive('fileinput', function(){
             $scope.items = angular.copy($scope.refer);
             
             $scope.$watch(function(){return $scope.refer}, function(nv, ov){
-                if(nv !== ov){
+                if(nv !== ov && (!!ov && ov.length >0)  && (!!nv && nv.length >0)){
                     $scope.refer = nv || [angular.copy(default_object)]; 
                     if(!$scope.refer.length){
                         $scope.refer.push(angular.copy(default_object));
@@ -64,7 +64,6 @@ angular.module('FormDirectives').directive('fileinput', function(){
                         'gn_commons/media/' + $scope.refer[idx].id_media, 
                         function(resp){
                             $scope.remove_item(idx);
-                            console.log(resp);
                         }
                     );
                 }

@@ -28,7 +28,9 @@
           type="checkbox" ng-if="field.type=='bool' && !field.options.multi" ng-model="data[field.name]" ng-disabled="field.options.readOnly"
         >
         <select id="{{field.name}}"
-          class="form-control" ng-options="item.id as item.libelle for item in field.options.choices" ng-model="data[field.name]"
+          class="form-control" 
+          ng-options="item.id as item.libelle for item in field.options.choices" 
+          ng-model="data[field.name]"
           ng-if="field.type=='select' && !field.options.multi" ng-disabled="field.options.readOnly"
         ></select>
 
@@ -75,4 +77,8 @@
         <subform ng-if="field.type=='subform'" schema="field.fields" refer="data[field.name]"></subform>
     </div>
 
+
+
+    <pre style='clear:both;' ng-if="debug">{{data|json}}</pre>
+AAAAA
 <pre style='clear:both;' ng-if="debug">{{Simpleform|json}}</pre>

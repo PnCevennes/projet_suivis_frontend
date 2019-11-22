@@ -7,10 +7,9 @@ angular.module('FormDirectives').directive('multisel', function(){
             data: '=',
         },
         controller: ['$scope', function($scope){
-            console.log('multisel');
-            $scope.$watch('schema', function(nv, ov){
-                console.log($scope.schema);
-            });
+            // $scope.$watch('schema', function(nv, ov){
+            //     console.log($scope.schema);
+            // });
             if(!$scope.data){
                 $scope.data = [];
             }
