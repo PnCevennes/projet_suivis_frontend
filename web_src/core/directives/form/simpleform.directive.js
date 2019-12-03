@@ -179,7 +179,9 @@ angular.module('FormDirectives').directive('simpleform', function(){
                 $scope.schema.groups.forEach(function(group){
                     group.fields.forEach(function(field){
                         if(field.type != 'group'){
-                            $scope.data[field.name] = resp[field.name] != undefined ? angular.copy(resp[field.name]) : field.default != undefined ? field.default : null;
+                           
+                            $scope.data[field.name] = resp[field.name] != undefined ? angular.copy(resp[field.name]) : $scope.getDefaut(field);
+                            
                             if(field.type=='hidden' && field.options && field.options.ref=='userId' && $scope.data[field.name]==null && userServ.checkLevel(field.options.restrictLevel || 0)){
                                 $scope.data[field.name] = userServ.getUser().user.id_role;
                             }
@@ -187,11 +189,10 @@ angular.module('FormDirectives').directive('simpleform', function(){
                         else{
                             field.fields.forEach(function(line){
                                 line.fields.forEach(function(grField){
-                                    $scope.data[grField.name] = resp[grField.name] != undefined ? angular.copy(resp[grField.name]) : grField.default != undefined ? grField.default : null;
+                                    $scope.data[grField.name] = resp[grField.name] != undefined ? angular.copy(resp[grField.name]) :  $scope.getDefaut(grField);
                                 });
                             });
                         }
-
                     });
                 });
                 $scope.deleteAccess = userServ.checkLevel($scope.schema.deleteAccess);
@@ -201,6 +202,19 @@ angular.module('FormDirectives').directive('simpleform', function(){
                 $rootScope.$broadcast('form:init', $scope.data);
                 dfd.resolve('loading form');
             };
+
+            $scope.getDefaut = function(field) {
+                 // Valeur par défaut
+                 default_value = field.default != undefined ? field.default : null;
+                 // Cas des selects de type thésaurus
+                 try {
+                     if (field.options.default && field.type == "select") {
+                         default_value = field.options.default[0];
+                     }
+                 }
+                 catch(e) {}
+                 return default_value
+            }
 
             $scope.cancel = function(){
                 $rootScope.$broadcast('form:cancel', $scope.data);
