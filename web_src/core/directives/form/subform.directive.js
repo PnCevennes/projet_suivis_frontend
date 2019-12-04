@@ -7,7 +7,8 @@ angular.module('FormDirectives').directive('subform', function(){
         },
         templateUrl: 'js/templates/form/subform.htm',
         controller: ['$scope', function($scope){
-            if($scope.refer == undefined){
+
+            $scope.create_default_object = function() {
                 obj = {};
                 // Création d'un objet avec les valeurs par défault spécifié dans la config
                 // TODO : Finaliser pour tous les types de champs
@@ -19,24 +20,14 @@ angular.module('FormDirectives').directive('subform', function(){
                         }
                     }
                     catch(e) {}
-                    
+
                     obj[field.name] = default_value;
                 });
-
-                $scope.refer = [obj];
+                return obj;
             }
 
-            $scope.items = angular.copy($scope.refer);
-            
-            $scope.$watch(function(){return $scope.refer}, function(nv, ov){
-                if(nv !== ov){
-                    $scope.refer = nv || [{}]; 
-                    $scope.items = angular.copy($scope.refer);
-                }
-            });
-            
             $scope.add_item = function(){
-                $scope.refer.push({});
+                $scope.refer.push($scope.create_default_object());
             };
 
             $scope.remove_item = function(idx){
@@ -51,6 +42,20 @@ angular.module('FormDirectives').directive('subform', function(){
                     $scope.refer[idx] = {};
                 }
             }
+
+            if($scope.refer == undefined){
+                $scope.refer = [$scope.create_default_object()];
+            }
+
+            $scope.items = angular.copy($scope.refer);
+
+            $scope.$watch(function(){return $scope.refer}, function(nv, ov){
+                if(nv !== ov){
+                    $scope.refer = nv || [{}];
+                    $scope.items = angular.copy($scope.refer);
+                }
+            });
+
         }]
     };
 });
