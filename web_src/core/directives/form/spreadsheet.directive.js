@@ -1,6 +1,6 @@
 /**
  * Directive pour l'affichage d'un tableau de saisie rapide style feuille de calcul
- * params : 
+ * params :
  *  schemaurl -> url du schema descripteur du tableau
  *  data -> reference vers le dictionnaire de données du formulaire parent
  *  dataref -> champ à utiliser pour stocker les données
@@ -23,7 +23,7 @@ angular.module('FormDirectives').directive('spreadsheet', function(){
             $scope.$watch(
                 function(){
                     return $scope.schemaUrl;
-                }, 
+                },
                 function(newval){
                     if(newval){
                         configServ.getUrl(newval, $scope.setSchema);
@@ -33,10 +33,17 @@ angular.module('FormDirectives').directive('spreadsheet', function(){
             $scope.setSchema = function(schema){
                 $scope.schema = schema;
                 $scope.schema.fields.forEach(function(item){
-                    defaultLine[item.name] = item.default || null;
+                    default_value = item.default != undefined ? item.default : null;
+                    try {
+                        if (item.options.default && item.type == "select") {
+                            default_value = item.options.default[0];
+                        }
+                    }
+                    catch(e) {}
+
+                    defaultLine[item.name] = default_value;
                 });
                 $scope.data = lines;
-                $scope.addLines();
             };
 
             $scope.remove_line = function(index) {
@@ -65,7 +72,7 @@ angular.module('FormDirectives').directive('spreadsheet', function(){
                 $scope.data.forEach(function(line){
                     var line_valid = true;
                     var line_empty = true;
-                    
+
                     $scope.schema.fields.forEach(function(field){
                         if(field.type == "hidden"){
                             if(field.options && field.options.ref == 'userId' && line[field.name] == null){
