@@ -42,7 +42,7 @@ Configuration
 * Ajouter/ modifier une application : modifier le fichier config/apps.toml
 * Modification des configurations : 
   * Modifier le fichier web_src/core/constant.js
-  * lancer la commande ./web_src/compile.sh
+  * lancer la commande ```./web_src/compile.sh```
 
 Technologies
 ------------
