@@ -1,12 +1,12 @@
     <div ng-repeat="field in group.fields" class="form-group" ng-if="!field.options.dismissed">
         <h4><label for="{{field.name}}" ng-if="field.type!='hidden' && field.type!='group'" tooltip="{{field.help}}" tooltip-placement="right">{{field.label}}</label></h4>
         <p style="color: red;" ng-show="errors[field.name]">{{errors[field.name]}}</p>
-       
+
         <multi refer="data[field.name]" schema="field" ng-if="field.options.multi"></multi>
-        
-        <input id="{{field.name}}" 
+
+        <input id="{{field.name}}"
           type="hidden" ng-if="field.type=='hidden' && !field.options.multi" ng-model="data[field.name]">
-        
+
         <input id="{{field.name}}"
           name="{{field.name}}" class="form-control" type="text" ng-if="field.type=='string' && !field.options.multi"
           ng-model="data[field.name]" ng-minlength="field.options.minLength" ng-maxlength="field.options.maxLength"
@@ -28,8 +28,8 @@
           type="checkbox" ng-if="field.type=='bool' && !field.options.multi" ng-model="data[field.name]" ng-disabled="field.options.readOnly"
         >
         <select id="{{field.name}}"
-          class="form-control" 
-          ng-options="item.id as item.libelle for item in field.options.choices" 
+          class="form-control"
+          ng-options="item.id as item.libelle for item in field.options.choices"
           ng-model="data[field.name]"
           ng-if="field.type=='select' && !field.options.multi" ng-disabled="field.options.readOnly"
         ></select>
@@ -60,20 +60,20 @@
           data="data" model="data[field.name]" modifiable="field.options.modifiable" min="field.options.min" max="field.options.max"
         ></calculated>
 
-        <fileinput ng-if="field.type=='file' && !field.options.multi" 
-          refer="data[field.name]" options="field.options" 
+        <fileinput ng-if="field.type=='file' && !field.options.multi"
+          refer="data[field.name]" options="field.options"
           attacheduuid="data[field.options.attachedUUID]"
         ></fileinput>
-        
+
         <div geometry
           ng-if="field.type=='geom' && !field.options.multi" origin="data['__origin__'][field.name]"
           geom="data[field.name]" options="field.options"
         ></div>
-        
+
         <table-fieldset ng-if="field.type=='group'" group="field" data="data" errors="errors"></table-fieldset>
-        
+
         <multisel ng-if="field.type=='multisel'" schema="field" data="data[field.name]"></multisel>
-        
+
         <subform ng-if="field.type=='subform'" schema="field.fields" refer="data[field.name]"></subform>
     </div>
 
