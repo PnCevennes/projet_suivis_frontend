@@ -37,8 +37,8 @@ if [[ "${ID_APP}" = "" ]]
 then
     echo "Création application"
     VALUE=$(export PGPASSWORD=$user_pg_pass;psql -h $db_host -U $user_pg -d $db_name -t -c "
-    INSERT INTO utilisateurs.t_applications(nom_application, desc_application)
-        VALUES ('suivi', 'Application mère dédiée aux protocole de suivis')
+    INSERT INTO utilisateurs.t_applications(nom_application, desc_application, code_application)
+        VALUES ('suivi', 'Application mère dédiée aux protocole de suivis', 'SUIVIS')
         RETURNING id_application;
     ")
     ID_APP=$(echo $VALUE|cut --delimiter=" " -f1)
