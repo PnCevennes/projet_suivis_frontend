@@ -1,7 +1,9 @@
 /*
  * Controleur de base
  */
-angular.module('appSuiviProtocoles').controller('baseController', ['$scope', '$location', 'dataServ', 'configServ', 'mapService', 'userMessages', 'userServ' ,function($scope, $location, dataServ, configServ, mapService, userMessages, userServ){
+angular.module('appSuiviProtocoles').controller('baseController',
+['$scope', '$location', 'dataServ', 'configServ', 'mapService', 'userMessages', 'userServ' ,'RESOURCES',
+function($scope, $location, dataServ, configServ, mapService, userMessages, userServ, RESOURCES){
     $scope._appName = null;
     $scope.app = {name: "Suivi des protocoles", menu: []};
     $scope.success = function(resp){
@@ -11,8 +13,7 @@ angular.module('appSuiviProtocoles').controller('baseController', ['$scope', '$l
         }
         $scope.data = resp;
 
-        // FIXME DEBUG
-        configServ.put('debug', true);
+        configServ.put('debug', RESOURCES.DEBUG);
 
         //configServ.put('app', $scope.data[0]);
         //$scope._appName = $scope.data[0].name;

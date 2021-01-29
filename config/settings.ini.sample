@@ -1,3 +1,4 @@
 GEONATURE_PATH=~/GeoNature
 API_URL="http://localhost:8000/"
 TAXHUB_URL="http://localhost:5000/api/"
+DEBUG=false
