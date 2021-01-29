@@ -27,13 +27,16 @@ angular.module('FormDirectives').directive('datepick', function(){
                     try {
                         $scope.date_display = new Date($scope.date);
                     } catch (e) {
-                        console.log(e); 
+                        console.log(e);
                     }
                 }
             });
 
             $scope.$watch('date_display', function(newval){
                 if (newval) {
+                    // Heure à 12h00 pour éviter un changement de jour
+                    // lors du passage en utc
+                    newval.setHours(12);
                     $scope.date = newval.toISOString();
                 }
             });
