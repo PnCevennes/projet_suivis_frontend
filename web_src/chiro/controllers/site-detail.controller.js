@@ -1,10 +1,11 @@
 /*
  * controleur pour l'affichage basique des détails d'un site
  */
-angular.module('baseSites').controller('siteDetailController', function($scope, $rootScope, $routeParams, configServ, userServ, mapService, $timeout){
+angular.module('baseSites').controller('siteDetailController', 
+  function($scope, $rootScope, $routeParams, configServ, mapService, RESOURCES){
 
     $scope._appName = $routeParams.appName;
-    $scope.schemaUrl = 'config?app='+ $routeParams.appName + '&vue=site&vue=detail';
+    $scope.schemaUrl = RESOURCES.BASE_CONFIG_URL + '?app='+ $routeParams.appName + '&vue=site&vue=detail';
     $scope.dataUrl = $scope._appName + '/site/' + $routeParams.id;
     $scope.dataId = $routeParams.id;
     $scope.updateUrl = '#/' + $scope._appName + '/edit/site/' + $routeParams.id;

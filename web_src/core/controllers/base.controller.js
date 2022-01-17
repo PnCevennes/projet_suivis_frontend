@@ -65,5 +65,5 @@ function($scope, $location, dataServ, configServ, mapService, userMessages, user
         return userServ.checkLevel(val);
     };
 
-    configServ.getUrl('config?app=suivis&vue=apps', $scope.success);
+    configServ.getUrl(RESOURCES.BASE_CONFIG_URL + '?app=suivis&vue=apps', $scope.success);
 }]);

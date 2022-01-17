@@ -1,7 +1,7 @@
-angular.module('baseTaxons').controller('taxonDetailController', function($scope, $rootScope, $routeParams, configServ, dataServ){
+angular.module('baseTaxons').controller('taxonDetailController', function($scope, $rootScope, $routeParams, RESOURCES){
 
     $scope._appName = $routeParams.appName;
-    $scope.schemaUrl = 'config?app='+ $routeParams.appName + '&vue=obs_taxon&vue=detail';
+    $scope.schemaUrl = RESOURCES.BASE_CONFIG_URL + '?app='+ $routeParams.appName + '&vue=obs_taxon&vue=detail';
     
     $scope.dataUrl = $scope._appName + '/contact_taxon/' + $routeParams.id;
     $scope.dataId = $routeParams.id;

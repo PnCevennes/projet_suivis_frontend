@@ -2,10 +2,10 @@
  * controleur pour l'édition d'un site
  */
 angular.module('baseSites').controller('siteEditController', function($scope, $rootScope, $routeParams, $location,
-    $filter, dataServ, mapService, configServ, userMessages, $timeout){
+    $filter, dataServ, mapService, configServ, userMessages, RESOURCES){
 
     $scope._appName = $routeParams.appName;
-    $scope.configUrl = 'config?app=' + $scope._appName + '&vue=site&vue=form';
+    $scope.configUrl = RESOURCES.BASE_CONFIG_URL + '?app=' + $scope._appName + '&vue=site&vue=form';
 
     if($routeParams.id){
         $scope.saveUrl = $scope._appName + '/site/' + $routeParams.id;

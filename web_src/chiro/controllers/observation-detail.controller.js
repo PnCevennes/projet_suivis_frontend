@@ -1,10 +1,11 @@
 /*
  * Detail d'une observation associée à un site
 */
-angular.module('baseObservations').controller('observationDetailController', function($scope, $rootScope, $routeParams, dataServ, configServ, mapService){
+angular.module('baseObservations').controller('observationDetailController', 
+    function($scope, $rootScope, $routeParams, mapService, RESOURCES){
     $scope._appName = $routeParams.appName;
 
-    $scope.schemaUrl = 'config?app='+ $routeParams.appName + '&vue=visite&vue=detail';
+    $scope.schemaUrl = RESOURCES.BASE_CONFIG_URL + '?app='+ $routeParams.appName + '&vue=visite&vue=detail';
     $scope.dataUrl = $scope._appName + '/visite/' + $routeParams.id;
     $scope.updateUrl = '#/' + $scope._appName + '/edit/observation/' + $routeParams.id;
     $scope.dataId = $routeParams.id;

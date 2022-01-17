@@ -1,8 +1,9 @@
-angular.module('baseTaxons').controller('taxonEditController', function($scope, $rootScope, $routeParams, $location, configServ, dataServ, userMessages){
+angular.module('baseTaxons').controller('taxonEditController', 
+    function($scope, $rootScope, $routeParams, $location, configServ, dataServ, userMessages, RESOURCES){
     $scope._appName = $routeParams.appName;
     $rootScope.$broadcast('map:hide');
     
-    $scope.configUrl = "config?app=" + $scope._appName + "&vue=obs_taxon&vue=form";
+    $scope.configUrl = RESOURCES.BASE_CONFIG_URL + "?app=" + $scope._appName + "&vue=obs_taxon&vue=form";
     if($routeParams.id){
         $scope.saveUrl = $scope._appName + '/contact_taxon/' + $routeParams.id;
         $scope.dataUrl = $scope._appName + '/contact_taxon/' + $routeParams.id;

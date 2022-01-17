@@ -1,9 +1,10 @@
 /*
  * Edition d'une observation associée à un site
  */
-angular.module('baseObservations').controller('observationEditController', function($scope, $rootScope, $routeParams, $location, configServ, dataServ, userMessages){
+angular.module('baseObservations').controller('observationEditController', 
+    function($scope, $rootScope, $routeParams, $location, dataServ, userMessages, RESOURCES){
     $scope._appName = $routeParams.appName;
-    $scope.configUrl = 'config?app=' + $scope._appName + '&vue=visite&vue=form';
+    $scope.configUrl = RESOURCES.BASE_CONFIG_URL + '?app=' + $scope._appName + '&vue=visite&vue=form';
     if($routeParams.id){
         $scope.saveUrl = $scope._appName + '/visite/' + $routeParams.id;
         $scope.dataUrl = $scope._appName + '/visite/' + $routeParams.id;

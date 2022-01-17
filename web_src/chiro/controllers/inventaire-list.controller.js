@@ -1,7 +1,8 @@
 /*
  *  Liste des observations sans site
  */
-angular.module('baseObservations').controller('inventaireListController', function($scope, $routeParams, dataServ, mapService, configServ, $loading, userServ, $q, $timeout){
+angular.module('baseObservations').controller('inventaireListController', 
+    function($scope, $routeParams, dataServ, mapService, configServ, $loading, userServ, $q, $timeout, RESOURCES){
     $scope._appName = $routeParams.appName;
 
 
@@ -45,7 +46,7 @@ angular.module('baseObservations').controller('inventaireListController', functi
     };
 
     $timeout(function(){
-        configServ.getUrl('config?app=' + $scope._appName + '&vue=visite&vue=list_ssite', $scope.setSchema);
+        configServ.getUrl(RESOURCES.BASE_CONFIG_URL + '?app=' + $scope._appName + '&vue=visite&vue=list_ssite', $scope.setSchema);
     }, 0);
 });
 

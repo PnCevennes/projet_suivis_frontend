@@ -1,7 +1,9 @@
-angular.module('generiques').controller('genericDetailController', [ '$scope', '$routeParams', 'configServ', 'dataServ', 'userServ', '$loading', 'mapService', '$q', '$timeout', function($scope, $routeParams, configServ, dataServ, userServ, $loading, mapService, $q, $timeout){
+angular.module('generiques').controller('genericDetailController', 
+    [ '$scope', '$routeParams',  'mapService', 'RESOURCES', 
+        function($scope, $routeParams,  mapService, RESOURCES){
 
     $scope._appName = $routeParams.appName;
-    $scope.configUrl = '/config?app='+ $routeParams.appName + '&vue=' + $routeParams.viewName + '&vue=detail';
+    $scope.configUrl = RESOURCES.BASE_CONFIG_URL + '?app='+ $routeParams.appName + '&vue=' + $routeParams.viewName + '&vue=detail';
     $scope.dataUrl = null;
 
     $scope.$on('schema:init', function(ev, schema){

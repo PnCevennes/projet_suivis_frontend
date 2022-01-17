@@ -1,7 +1,8 @@
 /*
  * controleur selection app
  */
-angular.module('appSuiviProtocoles').controller('appsController', ['$scope', '$location', 'configServ', 'userServ', function($scope, $location, configServ, userServ){
+angular.module('appSuiviProtocoles').controller('appsController', 
+    ['$scope', '$location', 'configServ', 'userServ', 'RESOURCES', function($scope, $location, configServ, userServ, RESOURCES){
     
     if(!userServ.getUser()){
         $location.url('login');
@@ -22,6 +23,6 @@ angular.module('appSuiviProtocoles').controller('appsController', ['$scope', '$l
         });
     };
 
-    configServ.getUrl('config?app=suivis&vue=apps', $scope.setData, true);
+    configServ.getUrl(RESOURCES.BASE_CONFIG_URL + '?app=suivis&vue=apps', $scope.setData, true);
 }]);
 

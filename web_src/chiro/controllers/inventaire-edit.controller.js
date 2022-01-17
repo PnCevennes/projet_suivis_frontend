@@ -1,9 +1,10 @@
 /*
  * Edition d'une observation sans site
  */
-angular.module('baseObservations').controller('inventaireEditController', function($scope, $rootScope, $routeParams, $location, configServ, dataServ, userMessages){
+angular.module('baseObservations').controller('inventaireEditController', 
+    function($scope, $rootScope, $routeParams, $location, dataServ, userMessages, RESOURCES){
     $scope._appName = $routeParams.appName;
-    $scope.configUrl =  'config?app='+ $routeParams.appName + '&vue=visite&vue=form_ssite';
+    $scope.configUrl = RESOURCES.BASE_CONFIG_URL + '?app='+ $routeParams.appName + '&vue=visite&vue=form_ssite';
 
     if($routeParams.id){
         $scope.saveUrl = $scope._appName + '/visite/' + $routeParams.id;

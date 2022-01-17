@@ -1,10 +1,11 @@
 /*
  * Détail d'une observation sans site
  */
-angular.module('baseObservations').controller('inventaireDetailController', function($scope, $rootScope, $routeParams, dataServ, configServ, mapService){
+angular.module('baseObservations').controller('inventaireDetailController', 
+    function($scope, $rootScope, $routeParams, mapService, RESOURCES){
     $scope._appName = $routeParams.appName;
 
-    $scope.schemaUrl = 'config?app='+ $routeParams.appName + '&vue=visite&vue=detail_ssite';
+    $scope.schemaUrl = RESOURCES.BASE_CONFIG_URL + '?app='+ $routeParams.appName + '&vue=visite&vue=detail_ssite';
     $scope.dataUrl = $scope._appName + '/visite/' + $routeParams.id;
     $scope.updateUrl = '#/' + $scope._appName + '/edit/inventaire/' + $routeParams.id;
     $scope.dataId = $routeParams.id;

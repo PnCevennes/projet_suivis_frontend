@@ -1,7 +1,7 @@
-angular.module('biometrie').controller('biometrieDetailController', function($scope, $rootScope, $routeParams, configServ, dataServ){
+angular.module('biometrie').controller('biometrieDetailController', function($scope, $routeParams, RESOURCES){
 
     $scope._appName = $routeParams.appName;
-    $scope.schemaUrl = 'config?app='+ $routeParams.appName + '&vue=biometrie&vue=detail';
+    $scope.schemaUrl = RESOURCES.BASE_CONFIG_URL + '?app='+ $routeParams.appName + '&vue=biometrie&vue=detail';
     $scope.dataUrl = $scope._appName + '/biometrie/' + $routeParams.id;
     $scope.updateUrl = '#/' + $scope._appName + '/edit/biometrie/' + $routeParams.id;
 
