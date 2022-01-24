@@ -1,12 +1,13 @@
 /*
  * controleur selection app
  */
-angular.module('appSuiviProtocoles').controller('appsController', 
+angular.module('appSuiviProtocoles').controller('appsController',
     ['$scope', '$location', 'configServ', 'userServ', 'RESOURCES', function($scope, $location, configServ, userServ, RESOURCES){
-    
+
     if(!userServ.getUser()){
         $location.url('login');
     }
+    $scope.user = userServ.getUser();
 
     $scope.$emit('app:selection');
 
